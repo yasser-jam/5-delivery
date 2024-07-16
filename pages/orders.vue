@@ -61,5 +61,5 @@
 </template>
 
 <script setup lang="ts">
-const confirmDialog = ref(true);
+const confirmDialog = ref(false);
 </script>
