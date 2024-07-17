@@ -16,10 +16,18 @@ export const useDriverStore = defineStore('driver', () => {
 
   const drivers = ref<Driver[]>([]);
 
+  const list = async () : Promise<Driver[]> => {
+    const res = await api('/drivers')
+
+    return res
+  }
+
   return {
     driver,
     drivers,
 
     headers,
+
+    list
   };
 });

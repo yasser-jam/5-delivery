@@ -88,6 +88,8 @@
               </div>
             </template>
           </v-data-table>
+
+          <v-btn @click="test">test</v-btn>
         </v-card>
       </v-col>
     </v-row>
@@ -100,6 +102,10 @@
 const driverStore = useDriverStore();
 
 const { headers } = storeToRefs(driverStore);
+
+const test = async () => {
+  await driverStore.list()
+}
 
 const drivers = [
   {

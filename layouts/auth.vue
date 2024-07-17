@@ -19,19 +19,7 @@
           <div class="flex flex-col justify-center items-center h-full bg-white px-24">
             <div class="text-5xl font-semibold text-primary">Login</div>
 
-            <div class="mt-8 w-full">
-              <div>
-                <div class="text-base font-semibold">Email</div>
-
-                <v-text-field placeholder="admin@gmail.com"></v-text-field>
-              </div>
-
-              <div class="mt-2">
-                <div class="text-base font-semibold">Password</div>
-
-                <v-text-field placeholder="********"></v-text-field>
-              </div>
-            </div>
+            <NuxtPage />
           </div>
         </v-col>
       </v-row>
