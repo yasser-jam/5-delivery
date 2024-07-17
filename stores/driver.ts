@@ -7,8 +7,6 @@ export const useDriverStore = defineStore('driver', () => {
     },
     { key: 'phonenumber', sortable: false, title: 'Phone Number' },
     { key: 'status', sortable: false, title: 'Status' },
-    { key: 'cancel_count', sortable: false, title: 'Cancel Count' },
-    { key: 'points', sortable: false, title: 'Points' },
     { key: 'actions', sortable: false, title: '', align: 'end' },
   ]);
 
@@ -17,9 +15,11 @@ export const useDriverStore = defineStore('driver', () => {
   const drivers = ref<Driver[]>([]);
 
   const list = async () : Promise<Driver[]> => {
-    const res = await api('/drivers')
+    const res : any = await api('/auth/getDeliveryWorker')
 
-    return res
+    drivers.value = res
+    
+    return drivers.value
   }
 
   return {

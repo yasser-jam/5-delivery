@@ -5,6 +5,7 @@ export interface Driver {
     password: string
     password_confirmation: string
     phone: string
+    status: 'Inactive' | 'Active'
 }
 
 export interface Complaint {
