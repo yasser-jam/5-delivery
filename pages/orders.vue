@@ -1,65 +1,97 @@
 <template>
   <v-container>
-    <div class="my-4">
-      <h1 class="text-3xl font-semibold text-secondary mb-2">
-        Orders Management
-      </h1>
+    <div class="flex justify-between my-4">
+      <div>
+        <h1 class="text-3xl font-semibold text-secondary mb-2">Orders List</h1>
 
-      <div class="text-gray-500 text-sm">
-        Assign Active Driver to Finished Order
+        <div class="text-gray-500 text-sm">
+          List all Orders (In-progress and Ready)
+        </div>
       </div>
     </div>
 
     <v-row>
-      <v-col cols="6">
-        <div class="!shadow-sm bg-gray-50 rounded-lg p-4">
-          <div
-            class="flex gap-2 items-center text-secondary text-xl font-medium mb-4"
-          >
-            <v-icon>mdi-moped</v-icon>
+      <v-col cols="12">
+        <v-card class="!shadow-sm">
+          <v-data-table :headers="headers" :items="orders" class="rounded-lg">
+            <template #item.id="{ item }">
+              <nuxt-link
+                :to="`/orders/${item.id}`"
+                class="text-decoration-none"
+              >
+                <div class="flex items-center gap-2 my-2">
+                  <v-avatar
+                    icon="mdi:package"
+                    color="grey"
+                    class="text-white"
+                    size="small"
+                  />
 
-            <div>Available Drivers</div>
-          </div>
+                  <div class="flex flex-col">
+                    <div class="font-semibold text-dark">#111</div>
+                  </div>
+                </div>
+              </nuxt-link>
+            </template>
 
-          <div class="max-h-[300px] overflow-auto">
-            <driver-card class="mb-2"></driver-card>
-            <driver-card class="mb-2"></driver-card>
-            <driver-card class="mb-2"></driver-card>
-            <driver-card class="mb-2"></driver-card>
-            <driver-card class="mb-2"></driver-card>
-            <driver-card class="mb-2"></driver-card>
-            <driver-card class="mb-2"></driver-card>
-            <driver-card class="mb-2"></driver-card>
-            <driver-card class="mb-2"></driver-card>
-          </div>
-        </div>
-      </v-col>
+            <template #item.driver_name="{ item }">
+                <div class="font-semibold">{{ item.driver_name }}</div>
+            </template>
 
-      <v-col cols="6">
-        <div class="!shadow-sm bg-gray-100 rounded-lg p-4">
-          <div
-            class="flex gap-2 items-center text-secondary text-xl font-medium mb-4"
-          >
-            <v-icon>mdi-car-pickup</v-icon>
+            <template #item.status="{ item }">
+              <base-status-chip :status="item.status"></base-status-chip>
+            </template>
 
-            <div>Available Orders</div>
-          </div>
-
-          <div class="max-h-[300px] overflow-auto">
-            <order-card class="mb-2"></order-card>
-            <order-card class="mb-2"></order-card>
-            <order-card class="mb-2"></order-card>
-            <order-card class="mb-2"></order-card>
-            <order-card class="mb-2"></order-card>
-          </div>
-        </div>
+            <template #item.actions="{ item }">
+              <div class="flex justify-end gap-2">
+                <v-btn
+                  color="blue"
+                  rounded="lg"
+                  size="x-small"
+                  variant="tonal"
+                  icon="mdi-eye-outline"
+                ></v-btn>
+              </div>
+            </template>
+          </v-data-table>
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
 
-  <dialog-confirm-order v-model="confirmDialog" />
+  <NuxtPage />
 </template>
 
-<script setup lang="ts">
-const confirmDialog = ref(false);
+<script setup>
+const orderStore = useOrderStore();
+
+const { headers } = storeToRefs(orderStore);
+
+const orders = [
+  {
+    id: 1,
+    driver_name: 'Yasser jamal',
+    status: false,
+  },
+  {
+    id: 2,
+    driver_name: 'Anas',
+    status: true,
+  },
+  {
+    id: 3,
+    driver_name: 'Mouhannad',
+    status: true,
+  },
+  {
+    id: 4,
+    driver_name: 'Tamim',
+    status: false,
+  },
+  {
+    id: 5,
+    driver_name: 'Rami',
+    status: false,
+  },
+];
 </script>

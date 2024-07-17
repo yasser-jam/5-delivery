@@ -39,6 +39,7 @@
 const items = [
   { text: 'Delivery Drivers', icon: 'mdi-moped', link: '/drivers' },
   { text: 'Orders', icon: 'mdi-package', link: '/orders' },
+  { text: 'Orders Management', icon: 'mdi-package-variant', link: '/orders-management' },
   { text: 'Complaints', icon: 'mdi-file-outline', link: '/Complaints' },
 ];
 </script>
