@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
 
-  modules: ['vuetify-nuxt-module', '@unocss/nuxt', '@pinia/nuxt'],
+  modules: ['vuetify-nuxt-module', '@unocss/nuxt', '@pinia/nuxt', '@vee-validate/nuxt',],
 
   css: ['~/assets/styles/main.scss'],
 
@@ -12,6 +12,7 @@ export default defineNuxtConfig({
       title: '5 - Delivery'
     }
   },
+  plugins: ['~/plugins/vee-validate.ts'],
 
   vuetify: {
     moduleOptions: {

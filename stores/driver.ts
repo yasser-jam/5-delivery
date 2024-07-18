@@ -14,6 +14,8 @@ export const useDriverStore = defineStore('driver', () => {
 
   const drivers = ref<Driver[]>([]);
 
+  const reset = () => driver.value = initDriver()
+
   const list = async () : Promise<Driver[]> => {
     const res : any = await api('/auth/getDeliveryWorker')
 
@@ -22,12 +24,37 @@ export const useDriverStore = defineStore('driver', () => {
     return drivers.value
   }
 
+  const get = async (id: number) : Promise<Driver> => {
+    const res : any = await api(`/auth/getUserInfo/${id}`)
+
+    driver.value = res[0][0]
+    
+    return driver.value
+  }
+
+  const update = async (id: number) : Promise<void> => {
+    await api(`/auth/updateDelivery/${id}`, {
+      method: 'PUT',
+      body: driver.value
+    })
+  }
+
+  const create = async () : Promise<void> => {
+    await api(`/auth/AddAccountDelivery`, {
+      method: 'POST',
+      body: driver.value
+    })
+  }
+
   return {
     driver,
     drivers,
 
     headers,
 
-    list
+    list,
+    get,
+    update,
+    create
   };
 });

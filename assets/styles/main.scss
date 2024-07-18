@@ -25,3 +25,9 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #aaa;
 }
+
+
+// Error messages
+.v-input__details {
+  padding-inline: 0 !important;
+}
