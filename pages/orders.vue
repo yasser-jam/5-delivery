@@ -13,7 +13,7 @@
     <v-row>
       <v-col cols="12">
         <v-card class="!shadow-sm">
-          <v-data-table :headers="headers" :items="orders" class="rounded-lg">
+          <v-data-table :headers="headers" :items="orders" :loading class="rounded-lg">
             <template #item.id="{ item }">
               <nuxt-link
                 :to="`/orders/${item.id}`"
@@ -21,25 +21,47 @@
               >
                 <div class="flex items-center gap-2 my-2">
                   <v-avatar
-                    icon="mdi:package"
+                    icon="mdi-package"
                     color="grey"
                     class="text-white"
                     size="small"
                   />
 
                   <div class="flex flex-col">
-                    <div class="font-semibold text-dark">#111</div>
+                    <div class="font-semibold text-dark">#{{ item.id }}</div>
                   </div>
                 </div>
               </nuxt-link>
             </template>
 
-            <template #item.driver_name="{ item }">
-                <div class="font-semibold">{{ item.driver_name }}</div>
+            <template #item.order_price="{ item }">
+              <div class="text-info font-semibold">
+                <span class="text-xl">{{ item.order_price }}</span>
+                <span class="ms-1 mt-1 text-sm">S.P</span>
+              </div>
+            </template>
+
+            <template #item.delivery_cost="{ item }">
+              <div class="text-purple font-semibold">
+                <span class="text-xl">{{ item.delivery_cost }}</span>
+                <span class="ms-1 mt-1 text-sm">S.P</span>
+              </div>
+            </template>
+
+            <template #item.order_date="{ item }">
+              <v-chip color="success">{{ item.order_date }}</v-chip>
+            </template>
+
+            <template #item.driver_worker_id="{ item }">
+                <div class="font-semibold">{{ item.delivery_worker_id }}</div>
+            </template>
+
+            <template #item.paid="{ item }">
+              <base-paid-chip :paid="item.paid" />
             </template>
 
             <template #item.status="{ item }">
-              <base-status-chip :status="item.status"></base-status-chip>
+              <v-chip color="gray">{{ item.status }}</v-chip>
             </template>
 
             <template #item.actions="{ item }">
@@ -50,6 +72,7 @@
                   size="x-small"
                   variant="tonal"
                   icon="mdi-eye-outline"
+                  @click="navigateTo(`/orders/${item.id}`)"
                 ></v-btn>
               </div>
             </template>
@@ -65,33 +88,7 @@
 <script setup>
 const orderStore = useOrderStore();
 
-const { headers } = storeToRefs(orderStore);
+const { headers, orders } = storeToRefs(orderStore);
 
-const orders = [
-  {
-    id: 1,
-    driver_name: 'Yasser jamal',
-    status: false,
-  },
-  {
-    id: 2,
-    driver_name: 'Anas',
-    status: true,
-  },
-  {
-    id: 3,
-    driver_name: 'Mouhannad',
-    status: true,
-  },
-  {
-    id: 4,
-    driver_name: 'Tamim',
-    status: false,
-  },
-  {
-    id: 5,
-    driver_name: 'Rami',
-    status: false,
-  },
-];
+const { pending: loading } = useLazyAsyncData(() => orderStore.list())
 </script>

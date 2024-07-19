@@ -4,7 +4,8 @@ export const initDriver = () : Driver => ({
     name: '',
     password: '',
     password_confirmation: '',
-    phone: ''
+    phone: '',
+    status: 'Inactive',
 })
 
 export const initComplaint = () : Complaint => ({
