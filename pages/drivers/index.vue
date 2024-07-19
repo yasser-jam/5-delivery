@@ -23,7 +23,7 @@
       <v-col cols="12">
         <v-card class="!shadow-sm">
           <v-data-table
-            :headers="headers"
+            :headers="headers as any"
             :items="drivers"
             :loading="pending"
             class="rounded-lg"
@@ -75,6 +75,7 @@
                   size="x-small"
                   variant="tonal"
                   icon="mdi-delete"
+                  @click="openDeleteDialog(Number(item.id))"
                 ></v-btn>
               </div>
             </template>
@@ -84,13 +85,39 @@
     </v-row>
   </v-container>
 
+  <dialog-remove
+    v-model="deleteDialogToggler"
+    :loading="deleteLoading"
+    @delete="remove"
+    item="driver"
+  />
+
   <NuxtPage />
 </template>
 
-<script setup>
+<script setup lang="ts">
 const driverStore = useDriverStore();
 
 const { headers, drivers } = storeToRefs(driverStore);
 
+const deletedId = ref<number>();
+const deleteDialogToggler = ref<boolean>(false);
+const deleteLoading = ref<boolean>(false);
+
 const { pending } = useLazyAsyncData(() => driverStore.list());
+
+const openDeleteDialog = (id: number) => {
+  deletedId.value = id;
+  deleteDialogToggler.value = true;
+};
+
+const remove = async () => {
+  deleteLoading.value = true;
+
+  try {
+    await driverStore.remove(Number(deletedId.value));
+  } finally {
+    deleteLoading.value = false;
+  }
+};
 </script>

@@ -46,6 +46,12 @@ export const useDriverStore = defineStore('driver', () => {
     })
   }
 
+  const remove = async (id: number) : Promise<void> => {
+    await api(`/auth/AddAccountDelivery`, {
+      method: 'DELETE'
+    })
+  }
+
   return {
     driver,
     drivers,
@@ -56,6 +62,7 @@ export const useDriverStore = defineStore('driver', () => {
     list,
     get,
     update,
-    create
+    create,
+    remove
   };
 });
