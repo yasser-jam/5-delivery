@@ -1,5 +1,5 @@
 <template>
-  <base-page-dialog :model-value="true">
+  <base-page-dialog :loading="pending" :model-value="true" @close="navigateTo('/drivers')">
     <template #title>Create Driver</template>
 
     <template #body>
@@ -56,7 +56,7 @@
             </Field>
           </v-col>
 
-          <v-col cols="12" md="6" class="pb-0">
+          <v-col v-if="!editMode" cols="12" md="6" class="pb-0">
             <div class="text-sm text-gray-900">Password</div>
             <Field
               v-model="driver.password"
@@ -74,7 +74,7 @@
             </Field>
           </v-col>
 
-          <v-col cols="12" md="6" class="pb-0">
+          <v-col v-if="!editMode" cols="12" md="6" class="pb-0">
             <div class="text-sm text-gray-900">Confirm Password</div>
             <Field
               v-model="driver.password_confirmation"
@@ -93,9 +93,9 @@
           </v-col>
         </v-row>
 
-        <div class="flex justify-end gap-2">
-          <v-btn variant="text" color="grey">Close</v-btn>
-          <v-btn color="secondary" type="submit">Save</v-btn>
+        <div class="flex justify-end gap-2 mt-4">
+          <v-btn variant="text" color="grey" @click="navigateTo('/drivers')">Close</v-btn>
+          <v-btn color="secondary" type="submit" :loading>Save</v-btn>
         </div>
       </Form>
     </template>
@@ -137,12 +137,16 @@ const submit = async () => {
 
   try {
     
-    if (editMode) await driverStore.update(driverId)
+    if (editMode) await driverStore.update(Number(driverId))
     
-    await driverStore.create();
+    else await driverStore.create();
 
+    // relist drivers
+    await driverStore.list()
   } finally {
     loading.value = false;
+
+    navigateTo('/drivers')
   }
 };
 </script>

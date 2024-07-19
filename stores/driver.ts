@@ -34,7 +34,7 @@ export const useDriverStore = defineStore('driver', () => {
 
   const update = async (id: number) : Promise<void> => {
     await api(`/auth/updateDelivery/${id}`, {
-      method: 'PUT',
+      method: 'POST',
       body: driver.value
     })
   }
@@ -52,6 +52,7 @@ export const useDriverStore = defineStore('driver', () => {
 
     headers,
 
+    reset,
     list,
     get,
     update,

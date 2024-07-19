@@ -1,8 +1,12 @@
-import { defineRule } from 'vee-validate';
+import { defineRule, Form, Field } from 'vee-validate';
 import { required, email } from '@vee-validate/rules';
 
-// Register rules globally
-defineRule('required', required);
-defineRule('email', email);
+export default defineNuxtPlugin(nuxtApp => {
+    // Register rules globally
+    defineRule('required', required);
+    defineRule('email', email);
 
-console.log('hello test');
+    // Register components globally
+    nuxtApp.vueApp.component('Form', Form)
+    nuxtApp.vueApp.component('Field', Field)
+  })
