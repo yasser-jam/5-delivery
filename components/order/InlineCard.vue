@@ -40,5 +40,4 @@ defineProps<{
   font-size: 4rem;
   z-index: 1;
   color: #ffc10722;
-}
-</style>
+}</style>

@@ -33,7 +33,7 @@
           </div>
 
           <div class="h-[300px] overflow-auto">
-            <template v-for="order in orders">
+            <template v-for="order in readyOrders">
               <nuxt-link :to="`/orders/${order.id}`" class="decoration-none">
                 <order-inline-card  :order class="mb-2"></order-inline-card>
               </nuxt-link>
@@ -42,7 +42,23 @@
         </base-card>
       </v-col>
 
-      <v-col cols="12">
+      <v-col cols="12" md="6">
+        <base-card :loading="activeOrdersLoading" class="!shadow-sm !bg-gray-50 rounded-lg p-4">
+          <div
+            class="flex gap-2 items-center text-gray text-xl font-medium mb-4"
+          >
+            <v-icon>mdi-package</v-icon>
+
+            <div>Pending Orders</div>
+          </div>
+
+          <div class="max-h-[300px] overflow-auto">
+            <order-deliver-card status="pending" class="mb-2"></order-deliver-card>
+          </div>
+        </base-card>
+      </v-col>
+
+      <v-col cols="12" md="6">
         <base-card :loading="activeOrdersLoading" class="!shadow-sm !bg-gray-50 rounded-lg p-4">
           <div
             class="flex gap-2 items-center text-blue text-xl font-medium mb-4"
@@ -53,7 +69,7 @@
           </div>
 
           <div class="max-h-[300px] overflow-auto">
-            <order-deliver-card class="mb-2"></order-deliver-card>
+            <order-deliver-card status="in_progress" class="mb-2"></order-deliver-card>
           </div>
         </base-card>
       </v-col>
@@ -74,6 +90,14 @@ const { pending: activeOrdersLoading } = useLazyAsyncData(() => orderStore.listU
 
 const { orders, activeOrders } = storeToRefs(orderStore)
 const { drivers } = storeToRefs(driverStore)
+
+const readyOrders = computed(() => 
+  orders.value.filter(order => order.status == 'Ready')
+)
+
+const pendingOrders = computed(() => 
+  orders.value.filter(order => order.status == 'Pending')
+)
 
 const confirmDialog = ref(false);
 

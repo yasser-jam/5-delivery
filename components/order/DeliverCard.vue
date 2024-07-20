@@ -18,6 +18,14 @@
         </div>
         
 
-        <v-chip color="blue">In Progress</v-chip>
+        <v-chip :color="status == 'in_progress' ? 'blue' : 'gray'">
+            {{ status == 'in_progress' ? 'Under Delivery' : 'Pending' }}
+        </v-chip>
     </div>
 </template>
+
+<script setup lang="ts">
+defineProps<{
+    status: 'in_progress' | 'pending'
+}>()
+</script>
