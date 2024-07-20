@@ -8,16 +8,20 @@
     >
     </base-title-section>
 
-    <v-row>
+    <placeholder-loading v-if="true" name="Drivers" />
+
+    <v-row v-else-if="!pending && drivers.length">
       <v-col v-for="driver in drivers" cols="12" md="4">
         <nuxt-link
           :to="`/drivers/details/${driver.id}`"
           class="decoration-none"
         >
-          <driver-card :driver />
+          <driver-card :driver editable />
         </nuxt-link>
       </v-col>
     </v-row>
+
+    <placeholder-empty v-else name="Drivers" />
   </v-container>
 
   <dialog-remove

@@ -36,7 +36,9 @@ export const useDriverStore = defineStore('driver', () => {
   const get = async (id: number) : Promise<Driver> => {
     const res : any = await api(`/auth/getUserInfo/${id}`)
 
-    driver.value = res[0][0]
+    driver.value = res?.user?.[0]
+
+    driver.value.complaints = res?.complaints
     
     return driver.value
   }
