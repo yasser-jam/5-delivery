@@ -8,12 +8,13 @@
         </div>
       </div>
       <v-btn
+      v-if="btnTitle"
         prepend-icon="mdi-plus"
         color="#FFA800"
         variant="tonal"
-        to=""
+        :to="btnLink"
       >
-        Add Driver
+        {{ btnTitle }}
       </v-btn>
 
 
@@ -25,5 +26,7 @@
 defineProps<{
     title: string,
     subtitle?: string
+    btnLink?: string
+    btnTitle?: string
 }>()
 </script>
