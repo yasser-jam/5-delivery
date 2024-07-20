@@ -30,11 +30,14 @@
       <v-app-bar-title class="px-4 mx-0">
         <div class="flex items-center justify-between">
           <div>
-
-            <img src="./../assets/images/logo2.png" width="200" alt="logo">
+            <img src="./../assets/images/logo2.png" width="200" alt="logo" />
           </div>
 
-          <v-btn prepend-icon="mdi-logout" color="error" variant="outlined"
+          <v-btn
+            prepend-icon="mdi-logout"
+            color="error"
+            variant="outlined"
+            @click="logout"
             >Logout</v-btn
           >
         </div>
@@ -46,3 +49,15 @@
     </v-main>
   </v-app>
 </template>
+
+<script setup lang="ts">
+const accessToken = useCookie('5d_access_token');
+
+const logout = () => {
+  // delete cookie
+  accessToken.value = null;
+
+  // navigate to login page
+  navigateTo('/login');
+};
+</script>
