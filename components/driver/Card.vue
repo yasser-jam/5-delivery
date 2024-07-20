@@ -32,9 +32,9 @@ defineProps<{
 <style scoped>
 .bg-icon {
     position: absolute;
-    right: 2rem;
-    top: .25rem;
-    font-size: 8rem;
+    right: 1rem;
+    top: .75rem;
+    font-size: 7rem;
     z-index: 1;
     color: #ffc10722
 }

@@ -1,18 +1,34 @@
 <template>
   <div
-    class="flex items-center p-6 bg-teal-50 rounded-lg border-2 border-dashed border-teal relative"
+    class="flex justify-between items-center p-6 bg-teal-50 rounded-lg border-2 border-dashed border-teal relative"
   >
-    <div class="flex justify-between items-center w-full">
-      <div class="text-teal font-semibold text-2xl">ID: #1</div>
+  <div>
+      <div class="text-teal font-semibold text-2xl">ID: #{{ order.id }}</div>
+  </div>
 
-      <v-chip class="text-teal"> Address </v-chip>
+    <div class="flex flex-col justify-center items-self-end">
+      <div class="text-teal-200">Order</div>
+      <div class="text-teal font-semibold text-2xl">
+        {{ order?.order_price }} <span class="text-teal-200 text-sm">S.P</span>
+      </div>
     </div>
+
+    <div class="flex flex-col justify-center">
+      <div class="text-teal-200">Delivery</div>
+      <div class="text-teal font-semibold text-2xl">
+        {{ order?.delivery_cost }} <span class="text-teal-200 text-sm">S.P</span>
+      </div>
+    </div>
+
+    <v-chip class="text-teal">{{ dayjs(order?.order_date).format('DD-MM-YYYY') }}</v-chip>
   </div>
 </template>
 
 <script setup lang="ts">
+import dayjs from 'dayjs'
+
 defineProps<{
-  order?: Order;
+  order: Order;
 }>();
 </script>
 

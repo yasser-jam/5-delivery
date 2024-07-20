@@ -15,12 +15,22 @@ export const useOrderStore = defineStore('order', () => {
     const order = ref<Order>({} as Order)
     const orders = ref<Order[]>([]);
   
+    const activeOrders = ref<Order[]>([])
+
     const list = async () : Promise<Order[]> => {
       const res : any = await api('/auth/AllOrderForMangerDelivery')
   
       orders.value = res
       
       return orders.value
+    }
+
+    const listUnderDelivery = async () : Promise<Order[]> => {
+      const res : Order[] = await api('/auth/AllOrder_UnderDelivery_ForMangerDelivery') as Order[]
+      
+      activeOrders.value = res
+
+      return activeOrders.value
     }
 
     const get = async (id: number) : Promise<Order> => {
@@ -34,10 +44,12 @@ export const useOrderStore = defineStore('order', () => {
     return {
       order,
       orders,
+      activeOrders,
   
       headers,
 
       list,
+      listUnderDelivery,
       get
     };
   });

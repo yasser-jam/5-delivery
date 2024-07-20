@@ -6,7 +6,7 @@
     <div class="flex flex-col gap-4">
       <div>
         <div class="text-amber font-semibold text-2xl">
-          Yasser Jamal Al-Deen
+          {{ driver.name }}
         </div>
       </div>
     </div>
@@ -15,7 +15,7 @@
 
 <script setup lang="ts">
 defineProps<{
-  driver?: Driver;
+  driver: Driver;
 }>();
 </script>
 
