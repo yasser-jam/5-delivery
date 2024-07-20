@@ -5,7 +5,7 @@
             <div class="flex items-center gap-2">
                 <v-avatar icon="mdi-moped" size="small" class="text-white" color="blue" />
         
-                <div class="text-secondary font-medium">Yasser Jamalaldeen</div>
+                <div class="text-secondary font-medium">{{ driver.name }}</div>
             </div>
     
             <v-icon color="grey">mdi-arrow-right-bold</v-icon>
@@ -13,7 +13,7 @@
             <div class="flex items-center gap-2">
                 <v-avatar icon="mdi-package" size="small" class="text-white" color="success" />
         
-                <div class="text-secondary font-medium">Order - 1</div>
+                <div class="text-secondary font-medium">Order - #{{ order.id }}</div>
             </div>
         </div>
         
@@ -21,11 +21,14 @@
         <v-chip :color="status == 'in_progress' ? 'blue' : 'gray'">
             {{ status == 'in_progress' ? 'Under Delivery' : 'Pending' }}
         </v-chip>
+
     </div>
 </template>
 
 <script setup lang="ts">
 defineProps<{
-    status: 'in_progress' | 'pending'
+    order: Order
+    status: 'in_progress' | 'pending',
+    driver: Driver
 }>()
 </script>

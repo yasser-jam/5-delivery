@@ -3,7 +3,7 @@
       <template v-slot:loader="{ isActive }">
         <v-progress-linear
           :active="isActive"
-          color="primary"
+          :color
           height="4"
           indeterminate
         ></v-progress-linear>
@@ -18,7 +18,10 @@
 </template>
 
 <script setup lang=ts>
-defineProps<{
+withDefaults(defineProps<{
     loading?: boolean
-}>()
+    color?: 'primary' | 'success' | 'blue'
+}>(), {
+  color: 'primary'
+})
 </script>

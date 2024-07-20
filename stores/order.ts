@@ -13,8 +13,14 @@ export const useOrderStore = defineStore('order', () => {
     ]);
   
     const order = ref<Order>({} as Order)
+    
+    // ready from restaurant but not assigned to any driver
     const orders = ref<Order[]>([]);
   
+    // ready and assigned but not confirmed from driver
+    const assignedOrders = ref<Order[]>([])
+    
+    // ready and assigned and confirmed from driver => in progress
     const activeOrders = ref<Order[]>([])
 
     const list = async () : Promise<Order[]> => {
@@ -33,6 +39,14 @@ export const useOrderStore = defineStore('order', () => {
       return activeOrders.value
     }
 
+    const listAssigned = async () : Promise<Order[]> => {
+      const res : Order[] = await api('/auth/AllOrder_Ready_ForMangerDelivery') as Order[]
+      
+      assignedOrders.value = res
+
+      return assignedOrders.value
+    }
+
     const get = async (id: number) : Promise<Order> => {
       const res : any = await api('/auth/AllOrderForMangerDelivery')
   
@@ -42,25 +56,26 @@ export const useOrderStore = defineStore('order', () => {
     }
 
     const assign = async (driverId: number, orderId: number) : Promise<void> => {
-      await api(`/auth/AssignOrderToDelivery/${driverId}/${orderId}`)
-      console.log(driverId);
-      console.log(orderId);
+      await api(`/auth/AssignOrderToDelivery/${orderId}/${driverId}`, {
+        method: 'POST'
+      })
 
       // re-list
       await list()
-
-      await listUnderDelivery()
+      await listAssigned()
     }
 
     return {
       order,
       orders,
       activeOrders,
+      assignedOrders,
   
       headers,
 
       list,
       listUnderDelivery,
+      listAssigned,
       get,
       assign
     };

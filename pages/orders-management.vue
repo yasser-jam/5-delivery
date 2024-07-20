@@ -43,6 +43,7 @@
       <v-col cols="6">
         <base-card
           :loading="ordersLoading"
+          color="success"
           class="!shadow-sm !bg-gray-50 rounded-lg p-4"
         >
           <div
@@ -63,7 +64,7 @@
         </base-card>
       </v-col>
 
-      <v-col cols="12" md="6">
+      <!-- <v-col cols="12" md="6">
         <base-card
           :loading="activeOrdersLoading"
           class="!shadow-sm !bg-gray-50 rounded-lg p-4"
@@ -83,11 +84,12 @@
             ></order-deliver-card>
           </div>
         </base-card>
-      </v-col>
+      </v-col> -->
 
-      <v-col cols="12" md="6">
+      <v-col cols="12">
         <base-card
-          :loading="activeOrdersLoading"
+          :loading="assignOrdersLoading"
+          color="blue"
           class="!shadow-sm !bg-gray-50 rounded-lg p-4"
         >
           <div
@@ -95,12 +97,15 @@
           >
             <v-icon>mdi-package</v-icon>
 
-            <div>In Progress Orders</div>
+            <div>Assigned Orders</div>
           </div>
 
           <div class="max-h-[300px] overflow-auto">
             <order-deliver-card
-              status="in_progress"
+              v-for="order in assignedOrders"
+              :order
+              :driver="drivers.find(driver => driver.id == order.delivery_worker_id as any) as Driver"
+              status="pending"
               class="mb-2"
             ></order-deliver-card>
           </div>
@@ -109,7 +114,11 @@
     </v-row>
   </v-container>
 
-  <dialog-confirm-order v-model="confirmDialog" />
+  <dialog-confirm-order
+    v-model="confirmDialog"
+    :driver="selectedDriver as Driver"
+    :order="selectedOrder as Order"
+  />
 </template>
 
 <script setup lang="ts">
@@ -117,8 +126,6 @@ import draggable from 'vuedraggable';
 
 const driverStore = useDriverStore();
 const orderStore = useOrderStore();
-
-const loading = ref<boolean>(false);
 
 const { pending: driversLoading } = useLazyAsyncData(() =>
   driverStore.listActive()
@@ -128,28 +135,34 @@ const { pending: activeOrdersLoading } = useLazyAsyncData(() =>
   orderStore.listUnderDelivery()
 );
 
-const { orders, activeOrders } = storeToRefs(orderStore);
+const { pending: assignOrdersLoading } = useLazyAsyncData(() =>
+  orderStore.listAssigned()
+);
+
+const { orders, activeOrders, assignedOrders } = storeToRefs(orderStore);
 const { drivers } = storeToRefs(driverStore);
 
 const selectedDriver = ref<Driver>();
+const selectedOrder = ref<Order>();
+
+const confirmDialog = ref(false);
 
 const readyOrders = computed(() =>
   orders.value.filter((order) => order.status == 'Ready')
 );
 
-const pendingOrders = computed(() =>
-  orders.value.filter((order) => order.status == 'Pending')
-);
-
 const assignDriver = async (order: Order) => {
-  loading.value = true;
+  // select order
+  selectedOrder.value = order;
 
-  try {
-    await orderStore.assign(Number(selectedDriver.value?.id), Number(order.id));
-  } finally {
-    loading.value = false;
-  }
+  // open dialog
+  confirmDialog.value = true;
 };
-
-const confirmDialog = ref(false);
 </script>
+
+<style scoped>
+.ghost {
+  opacity: 0.5;
+  background: #c8ebfb;
+}
+</style>
