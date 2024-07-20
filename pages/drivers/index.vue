@@ -8,7 +8,7 @@
     >
     </base-title-section>
 
-    <placeholder-loading v-if="true" name="Drivers" />
+    <placeholder-loading v-if="pending" name="Drivers" />
 
     <v-row v-else-if="!pending && drivers.length">
       <v-col v-for="driver in drivers" cols="12" md="4">
