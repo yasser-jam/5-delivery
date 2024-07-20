@@ -41,6 +41,17 @@ export const useOrderStore = defineStore('order', () => {
       return order.value
     }
 
+    const assign = async (driverId: number, orderId: number) : Promise<void> => {
+      await api(`/auth/AssignOrderToDelivery/${driverId}/${orderId}`)
+      console.log(driverId);
+      console.log(orderId);
+
+      // re-list
+      await list()
+
+      await listUnderDelivery()
+    }
+
     return {
       order,
       orders,
@@ -50,7 +61,8 @@ export const useOrderStore = defineStore('order', () => {
 
       list,
       listUnderDelivery,
-      get
+      get,
+      assign
     };
   });
   

@@ -7,7 +7,10 @@
 
     <v-row>
       <v-col cols="6">
-        <base-card :loading="driversLoading" class="!shadow-sm !bg-gray-50 rounded-lg">
+        <base-card
+          :loading="driversLoading"
+          class="!shadow-sm !bg-gray-50 rounded-lg"
+        >
           <div
             class="flex gap-2 items-center text-amber text-xl font-medium mb-4"
           >
@@ -17,13 +20,31 @@
           </div>
 
           <div class="h-[300px] overflow-auto">
-            <driver-inline-card v-for="driver in drivers" :driver class="mb-2"></driver-inline-card>
+            <draggable
+              v-model="drivers"
+              @start="(el) => (selectedDriver = drivers[el.oldIndex])"
+              handle=""
+              :list="drivers"
+              key="id"
+              class="list-group"
+              ghost-class="ghost"
+            >
+              <template #item="{ element }">
+                <driver-inline-card
+                  :driver="element"
+                  class="mb-2"
+                ></driver-inline-card>
+              </template>
+            </draggable>
           </div>
         </base-card>
       </v-col>
 
       <v-col cols="6">
-        <base-card :loading="ordersLoading" class="!shadow-sm !bg-gray-50 rounded-lg p-4">
+        <base-card
+          :loading="ordersLoading"
+          class="!shadow-sm !bg-gray-50 rounded-lg p-4"
+        >
           <div
             class="flex gap-2 items-center text-teal text-xl font-medium mb-4"
           >
@@ -35,7 +56,7 @@
           <div class="h-[300px] overflow-auto">
             <template v-for="order in readyOrders">
               <nuxt-link :to="`/orders/${order.id}`" class="decoration-none">
-                <order-inline-card  :order class="mb-2"></order-inline-card>
+                <order-inline-card :order class="mb-2" @drop="assignDriver" />
               </nuxt-link>
             </template>
           </div>
@@ -43,7 +64,10 @@
       </v-col>
 
       <v-col cols="12" md="6">
-        <base-card :loading="activeOrdersLoading" class="!shadow-sm !bg-gray-50 rounded-lg p-4">
+        <base-card
+          :loading="activeOrdersLoading"
+          class="!shadow-sm !bg-gray-50 rounded-lg p-4"
+        >
           <div
             class="flex gap-2 items-center text-gray text-xl font-medium mb-4"
           >
@@ -53,13 +77,19 @@
           </div>
 
           <div class="max-h-[300px] overflow-auto">
-            <order-deliver-card status="pending" class="mb-2"></order-deliver-card>
+            <order-deliver-card
+              status="pending"
+              class="mb-2"
+            ></order-deliver-card>
           </div>
         </base-card>
       </v-col>
 
       <v-col cols="12" md="6">
-        <base-card :loading="activeOrdersLoading" class="!shadow-sm !bg-gray-50 rounded-lg p-4">
+        <base-card
+          :loading="activeOrdersLoading"
+          class="!shadow-sm !bg-gray-50 rounded-lg p-4"
+        >
           <div
             class="flex gap-2 items-center text-blue text-xl font-medium mb-4"
           >
@@ -69,7 +99,10 @@
           </div>
 
           <div class="max-h-[300px] overflow-auto">
-            <order-deliver-card status="in_progress" class="mb-2"></order-deliver-card>
+            <order-deliver-card
+              status="in_progress"
+              class="mb-2"
+            ></order-deliver-card>
           </div>
         </base-card>
       </v-col>
@@ -80,25 +113,43 @@
 </template>
 
 <script setup lang="ts">
+import draggable from 'vuedraggable';
 
-const driverStore = useDriverStore()
-const orderStore = useOrderStore()
+const driverStore = useDriverStore();
+const orderStore = useOrderStore();
 
-const { pending: driversLoading } = useLazyAsyncData(() => driverStore.listActive())
-const { pending: ordersLoading } = useLazyAsyncData(() => orderStore.list())
-const { pending: activeOrdersLoading } = useLazyAsyncData(() => orderStore.listUnderDelivery())
+const loading = ref<boolean>(false);
 
-const { orders, activeOrders } = storeToRefs(orderStore)
-const { drivers } = storeToRefs(driverStore)
+const { pending: driversLoading } = useLazyAsyncData(() =>
+  driverStore.listActive()
+);
+const { pending: ordersLoading } = useLazyAsyncData(() => orderStore.list());
+const { pending: activeOrdersLoading } = useLazyAsyncData(() =>
+  orderStore.listUnderDelivery()
+);
 
-const readyOrders = computed(() => 
-  orders.value.filter(order => order.status == 'Ready')
-)
+const { orders, activeOrders } = storeToRefs(orderStore);
+const { drivers } = storeToRefs(driverStore);
 
-const pendingOrders = computed(() => 
-  orders.value.filter(order => order.status == 'Pending')
-)
+const selectedDriver = ref<Driver>();
+
+const readyOrders = computed(() =>
+  orders.value.filter((order) => order.status == 'Ready')
+);
+
+const pendingOrders = computed(() =>
+  orders.value.filter((order) => order.status == 'Pending')
+);
+
+const assignDriver = async (order: Order) => {
+  loading.value = true;
+
+  try {
+    await orderStore.assign(Number(selectedDriver.value?.id), Number(order.id));
+  } finally {
+    loading.value = false;
+  }
+};
 
 const confirmDialog = ref(false);
-
 </script>
