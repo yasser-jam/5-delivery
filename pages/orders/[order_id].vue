@@ -1,42 +1,43 @@
-<template>
-  <base-page-dialog :model-value="true" @close="navigateTo('/orders')">
+<!-- <template>
+  <base-page-dialog :model-value="true" :loading @close="navigateTo('/orders')">
     <template #title>Order Details</template>
 
     <template #body>
-      <v-row>
-        <v-col cols="6">
-          <div class="flex items-center gap-2">
-            <div class="font-semibold">Order ID</div>
-            <v-chip color="secondary">#1</v-chip>
-          </div>
-        </v-col>
+      <v-tabs v-model="tab">
+        <v-tab name="info">Order Info</v-tab>
+        <v-tab name="map">Delivery Map</v-tab>
+      </v-tabs>
 
-        <v-col cols="6">
-          <div class="flex items-center gap-2">
-            <div class="font-semibold">Driver Name</div>
-            <v-chip color="secondary">Yasser Jamal Aldeen</v-chip>
-          </div>
-        </v-col>
+      <v-window v-model="tab">
+        <v-window-item name="map">
+          <v-row>
+            <v-col class="mt-4">
+              <div class="font-semibold">Driver Current Position</div>
+              <div id="map" class="h-[300px] w-full"></div>
+            </v-col>
 
-        <v-col class="mt-4">
-          <div class="font-semibold">Driver Current Position</div>
+            <v-btn @click="initMap">click</v-btn>
+          </v-row>
+        </v-window-item>
 
-          <div class="w-full">
-            <!-- <img
-              :src="`https://maps.google.com/maps?q=36,${lat}&hl=es;z=25&amp;output=embed`"
-              width="100%"
-              height="250"
-              style="border: 0"
-            /> -->
+        <v-window-item name="info">
+          <v-row>
+            <v-col cols="6">
+              <div class="flex items-center gap-2">
+                <div class="font-semibold">Order ID</div>
+                <v-chip color="secondary">#1</v-chip>
+              </div>
+            </v-col>
 
-            <div id="map" class="h-[300px] w-full"></div>
-
-            <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d13304.755359898563!2d36.28535544678928!3d33.52247554967195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1518e7303c56f007%3A0x24e5c252433c695a!2sAbu%20Shaker!5e0!3m2!1sen!2s!4v1721201809329!5m2!1sen!2s" width="100%" height="250" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
-          </div>
-        </v-col>
-
-        <v-btn @click="initMap">click</v-btn>
-      </v-row>
+            <v-col cols="6">
+              <div class="flex items-center gap-2">
+                <div class="font-semibold">Driver Name</div>
+                <v-chip color="secondary">Yasser Jamal Aldeen</v-chip>
+              </div>
+            </v-col>
+          </v-row>
+        </v-window-item>
+      </v-window>
     </template>
   </base-page-dialog>
   <link
@@ -55,6 +56,20 @@ useHead({
     },
   ],
 });
+
+const route = useRoute();
+
+const orderStore = useOrderStore();
+
+const orderId = route.params.order_id;
+
+const { pending: loading } = useLazyAsyncData(() =>
+  orderStore.get(Number(orderId))
+);
+
+const { order } = storeToRefs(orderStore);
+
+const tab = ref('info');
 
 const lat = ref(37.102);
 
@@ -95,4 +110,119 @@ function updateMarkerPosition() {
 //     updateMarkerPosition()
 //   }, 2000)
 // });
+</script> -->
+
+<template>
+  <v-container>
+    <v-row>
+      <v-col cols="12" class="mb-2">
+        <order-timeline></order-timeline>
+      </v-col>
+
+      <v-col cols="12" md="6">
+        <div class="text-xl font-medium text-gray-400 mb-2">
+          Delivery Worker
+        </div>
+
+        <driver-card :driver="order.delivery_worker" />
+      </v-col>
+
+      <v-col cols="12" md="6" class="mb-4">
+        <div class="text-xl font-medium text-gray-400 mb-2">Customer</div>
+
+        <user-card :user="order.user"></user-card>
+      </v-col>
+
+      <v-col cols="12" md="4">
+        <div class="text-xl font-medium text-gray-400 mb-2">Order Meals</div>
+
+        <div class="max-h-[300px] overflow-auto">
+          <meal-card v-for="meal in order.meals" :meal class="mb-2" />
+          <meal-card v-for="meal in order.meals" :meal class="mb-2" />
+          <meal-card v-for="meal in order.meals" :meal class="mb-2" />
+        </div>
+      </v-col>
+
+      <v-col cols="12" md="8">
+        <div class="text-xl font-medium text-gray-400 mb-2">
+          Order Address
+        </div>
+
+        <order-map is-done></order-map>
+      </v-col>
+    </v-row>
+
+    {{ order }}
+
+    <h2>meal</h2>
+  </v-container>
+</template>
+
+<script setup lang="ts">
+const orderStore = useOrderStore();
+
+const route = useRoute();
+
+const orderId = route.params.order_id;
+
+const { pending } = useLazyAsyncData(() => orderStore.get(Number(orderId)));
+
+// const { order } = storeToRefs(orderStore);
+
+const order = ref<Order>({
+  id: 0,
+  status: 'Ready', // Todo: get the right status values
+  order_price: '1000',
+  delivery_cost: '20',
+  order_date: '20/2/2001',
+  paid: 1,
+  user_id: 1,
+  user: {
+    id: 1,
+    name: 'Yasser Jamal Al-deen',
+    email: 'yasserjamalaldeen@gmail.com',
+    email_verified_at: null,
+    phone: '213123',
+    cancel_count: 1,
+    points: 100,
+    blocked_until: '20/2/2001',
+    status: 'Active',
+  },
+  address_id: 1,
+  address: {
+    id: 1,
+    x: 1,
+    y: 4,
+    address_name: 'test',
+  },
+  delivery_received: 1,
+  delivery_worker_id: '1',
+  delivery_worker: {
+    id: 1,
+    name: 'Ahmad',
+    email: 'ahmad@gmail.com',
+    password: 'password',
+    password_confirmation: 'password',
+    phone: '0993544811',
+    status: 'Active',
+  },
+  restaurant_name: 'Italiano',
+  meals: [
+    {
+      id: 1,
+      name: 'Ice Cream',
+      photo: '',
+      price: '10000',
+      description: 'Very Good and Beautiful Icecream',
+      owner_resturent_id: 1,
+      category_id: 1,
+      price_after_discount: 2000,
+      end_date: null,
+      quantity: '2',
+      size: 'large',
+      addons: [],
+      withouts: [],
+    },
+  ],
+});
 </script>

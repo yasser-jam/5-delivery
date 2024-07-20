@@ -58,12 +58,12 @@ export interface Order {
   order_date: string;
   paid: 0 | 1;
   user_id: number;
-  user?: User;
+  user: User;
   address_id: 1;
   address?: Address;
   delivery_received: 0 | 1;
   delivery_worker_id: string;
-  delivery_worker?: Worker;
+  delivery_worker: Driver;
   restaurant_name?: string;
   meals?: Meal[]
 }
