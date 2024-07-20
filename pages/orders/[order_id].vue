@@ -151,10 +151,6 @@ function updateMarkerPosition() {
         <order-map is-done></order-map>
       </v-col>
     </v-row>
-
-    {{ order }}
-
-    <h2>meal</h2>
   </v-container>
 </template>
 

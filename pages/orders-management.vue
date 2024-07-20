@@ -33,7 +33,11 @@
           </div>
 
           <div class="h-[300px] overflow-auto">
-            <order-inline-card v-for="order in orders" :order class="mb-2"></order-inline-card>
+            <template v-for="order in orders">
+              <nuxt-link :to="`/orders/${order.id}`" class="decoration-none">
+                <order-inline-card  :order class="mb-2"></order-inline-card>
+              </nuxt-link>
+            </template>
           </div>
         </base-card>
       </v-col>

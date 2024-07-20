@@ -37,6 +37,6 @@ defineProps<{
     top: .25rem;
     font-size: 7rem;
     z-index: 1;
-    color: #A78BFA
+    color: #a78bfa44
 }
 </style>
