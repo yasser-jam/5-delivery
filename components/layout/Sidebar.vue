@@ -27,7 +27,7 @@
   <v-list density="compact" nav>
     <v-list-item v-for="(item, i) in items" color="gray" class="mt-2" :to="item.link">
       <template v-slot:prepend>
-        <v-icon :icon="item.icon"></v-icon>
+        <v-icon :icon="item.icon" size="2rem"></v-icon>
       </template>
 
       <v-list-item-title>{{ item.text }}</v-list-item-title>
