@@ -1,27 +1,31 @@
 <template>
-  <v-container>
-    <div class="flex justify-between my-4">
-      <div>
-        <h1 class="text-3xl font-semibold text-secondary mb-2">Drivers List</h1>
-
-        <div class="text-gray-500 text-sm">
-          List all Drivers (Active and Inactive)
-        </div>
-      </div>
-
-      <v-btn
-        prepend-icon="mdi-plus"
-        color="blue"
-        variant="tonal"
-        to="/drivers/create"
-      >
-        Add Driver
-      </v-btn>
-    </div>
+  <v-container class="my-2">
+    <base-title-section
+      title="Add Driver"
+      subtitle="List all Drivers (Active and Inactive)"
+      btn-title="Add Driver"
+      btn-link="/drivers/create"
+    >
+    </base-title-section>
 
     <v-row>
-      <v-col cols="12">
-        <v-card class="!shadow-sm">
+      <v-col cols="12" md="4">
+        <driver-card :driver="{}" />
+      </v-col>
+
+      <v-col cols="12" md="4">
+        <driver-card :driver="{}" />
+      </v-col>
+      <v-col cols="12" md="4">
+        <driver-card :driver="{}" />
+      </v-col>
+      <v-col cols="12" md="4">
+        <driver-card :driver="{}" />
+      </v-col>
+
+      <v-col cols="12" md="4">
+        <driver-card :driver="{}" />
+        <!-- <v-card class="!shadow-sm">
           <v-data-table
             :headers="headers as any"
             :items="drivers"
@@ -80,7 +84,7 @@
               </div>
             </template>
           </v-data-table>
-        </v-card>
+        </v-card> -->
       </v-col>
     </v-row>
   </v-container>
