@@ -6,16 +6,16 @@
         <div class="flex flex-col gap-4">
             <div>
                 <div class="text-amber font-semibold text-2xl">
-                    Yasser Jamal Al-Deen
+                    {{ driver.name }}
                 </div>
                 <div class="text-gray-400 text-base">
-                    yasserjamalaldeen@gmail.com
+                    {{ driver.email }}
                 </div>
 
 
                 <div class="flex items-center gap-2 font-medium text-amber mt-4">
                     <v-icon>mdi-phone</v-icon>
-                    <div>0993544811</div>
+                    <div>{{ driver.phone }}</div>
                 </div>
             </div>
 
