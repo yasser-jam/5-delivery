@@ -1,4 +1,7 @@
 export const useOrderStore = defineStore('order', () => {
+
+  const toasterStore = useToasterStore()
+
     const headers = ref([
       {
         key: 'id',
@@ -48,14 +51,10 @@ export const useOrderStore = defineStore('order', () => {
     }
 
     const get = async (id: number) : Promise<Order> => {
-      console.log('in get');
       const res : any = await api(`/auth/getOrderDetails/${id}`)
-      console.log('object');
-      console.log(res);
 
       order.value = res
-      console.log('in order details');
-      console.log(res);
+
       return order.value
     }
 
@@ -67,6 +66,8 @@ export const useOrderStore = defineStore('order', () => {
       // re-list
       await list()
       await listAssigned()
+
+      toasterStore.showSuccessMsg('Order Assigned Successfully!')
     }
 
     const getPosition = async () => {

@@ -47,10 +47,18 @@
     <v-main class="bg-[#FCFCFC]">
       <NuxtPage />
     </v-main>
+
+    <base-toaster v-model="showToaster" :status="toasterStatus" :msg />
   </v-app>
 </template>
 
 <script setup lang="ts">
+import { useToasterStore } from '~/stores/toaster';
+
+const toasterStore = useToasterStore()
+
+const { msg, showToaster, toasterStatus } = storeToRefs(toasterStore)
+
 const accessToken = useCookie('5d_access_token');
 
 const logout = () => {

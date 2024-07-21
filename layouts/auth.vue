@@ -11,7 +11,7 @@
                 class="mb-2"
               />
 
-              <div class="subtitle text-gray-400 text-lg text-center px-16 leading-relaxed">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Est eveniet facilis, ipsum repellendus dignissimos ratione?</div>
+              <div class="subtitle text-gray-400 text-lg text-center px-16 leading-relaxed">Best Delivery App Ever!</div>
           </div>
         </v-col>
 

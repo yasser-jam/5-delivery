@@ -37,7 +37,7 @@
 <script setup lang="ts">
 const driverStore = useDriverStore();
 
-const { headers, drivers } = storeToRefs(driverStore);
+const { drivers } = storeToRefs(driverStore);
 
 const deletedId = ref<number>();
 const deleteDialogToggler = ref<boolean>(false);

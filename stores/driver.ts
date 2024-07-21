@@ -1,4 +1,7 @@
 export const useDriverStore = defineStore('driver', () => {
+
+  const toasterStore = useToasterStore()
+
   const headers = ref([
     {
       key: 'name',
@@ -48,6 +51,8 @@ export const useDriverStore = defineStore('driver', () => {
       method: 'POST',
       body: driver.value
     })
+
+    toasterStore.showSuccessMsg('Driver Updated Successfully!')
   }
 
   const create = async () : Promise<void> => {
@@ -55,12 +60,16 @@ export const useDriverStore = defineStore('driver', () => {
       method: 'POST',
       body: driver.value
     })
+
+    toasterStore.showSuccessMsg('Driver Created Successfully!')
   }
 
   const remove = async (id: number) : Promise<void> => {
     await api(`/auth/Cancel_delivery_worker/${id}`, {
       method: 'POST'
     })
+
+    toasterStore.showSuccessMsg('Driver Removed Successfully!')
   }
 
   return {
