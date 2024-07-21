@@ -33,16 +33,16 @@ const initMap = () => {
   const initialPosition = [51.505, -0.09]; // Initial coordinates (latitude, longitude)
 
   // @ts-ignore
-  map = window.L.map('map').setView(initialPosition, 13);
+  map = window.L?.map('map').setView(initialPosition, 13);
 
   // @ts-ignore
-  window.L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  window.L?.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; OpenStreetMap contributors',
   }).addTo(map);
 
   // @ts-ignore
-  marker = window.L.marker(initialPosition).addTo(map);
+  marker = window.L?.marker(initialPosition).addTo(map);
 };
 
 const updateMarkerPosition = async () => {
@@ -65,8 +65,8 @@ onMounted(() => {
 
   initMap()
 
-  // setInterval(async () => {
-  //   await updateMarkerPosition();
-  // }, 1000);
+  setInterval(async () => {
+    await updateMarkerPosition();
+  }, 1000);
 });
 </script>
