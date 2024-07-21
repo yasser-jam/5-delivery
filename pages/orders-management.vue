@@ -19,7 +19,9 @@
             <div>Available Drivers</div>
           </div>
 
-          <div class="h-[300px] overflow-auto">
+          <placeholder-empty v-if="!drivers.length" name="Drivers" />
+
+          <div v-else class="h-[300px] overflow-auto">
             <draggable
               :list="drivers"
               @start="(el) => (selectedDriver = drivers[el.oldIndex])"
@@ -55,7 +57,9 @@
             <div>Available Orders</div>
           </div>
 
-          <div class="h-[300px] overflow-auto">
+          <placeholder-empty v-if="!readyOrders?.length" name="Ready Orders" />
+
+          <div v-else class="h-[300px] overflow-auto">
             <template v-for="order in readyOrders">
               <nuxt-link :to="`/orders/${order.id}`" class="decoration-none">
                 <order-inline-card :order class="mb-2" @drop="assignDriver" />
