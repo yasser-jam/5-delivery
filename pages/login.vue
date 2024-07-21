@@ -53,6 +53,8 @@ definePageMeta({
   layout: 'auth',
 });
 
+const accessToken = useCookie('5d_access_token')
+
 const loading = ref<boolean>(false);
 
 const authStore = useAuthStore();
@@ -68,7 +70,7 @@ const submit = async () => {
   try {
     await authStore.login(user.value);
 
-    navigateTo('/drivers');
+    if (accessToken.value?.length) navigateTo('/drivers')
   } finally {
     loading.value = false;
   }

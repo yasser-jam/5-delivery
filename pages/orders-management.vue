@@ -20,7 +20,6 @@
           </div>
 
           <placeholder-empty v-if="!drivers.length" name="Drivers" />
-
           <div v-else class="h-[300px] overflow-auto">
             <draggable
               :list="drivers"
@@ -161,13 +160,13 @@ const { pending: assignOrdersLoading } = useLazyAsyncData(() =>
 
 // check if the driver on way to deliver order
 const isDriverOnWay = (driverId: number) =>
-  activeOrders.value.findIndex(
+  activeOrders.value?.findIndex(
     (order) => Number(order.delivery_worker_id) == driverId
   ) > -1;
 
 // check if the driver pending to confirm order
 const isDriverPending = (driverId: number) =>
-  assignedOrders.value.findIndex(
+  assignedOrders.value?.findIndex(
     (order) => Number(order.delivery_worker_id) == driverId
   ) > -1;
 
