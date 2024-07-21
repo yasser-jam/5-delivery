@@ -1,24 +1,40 @@
 export const useComplaintStore = defineStore('complaint', () => {
-    const headers = ref([
-      {
-        key: 'complaint',
-        sortable: false,
-        title: 'Complaint',
-      },
-      { key: 'date', sortable: false, title: 'Date' },
-      { key: 'driver', sortable: false, title: 'Driver Name' },
-      { key: 'actions', sortable: false, title: '', align: 'end' },
-    ]);
-  
-    const complaint = ref<Complaint>(initComplaint());
-  
-    const complaints = ref<Complaint[]>([]);
-  
-    return {
-        complaint,
-        complaints,
-  
-      headers,
-    };
-  });
-  
+  const headers = ref([
+    {
+      key: 'complaint',
+      sortable: false,
+      title: 'Complaint',
+    },
+    { key: 'date', sortable: false, title: 'Date' },
+    { key: 'order_id', sortable: false, title: 'Order ID' },
+  ]);
+
+  const complaint = ref<Complaint>(initComplaint());
+
+  const complaints = ref<Complaint[]>([]);
+
+  const list = async (): Promise<Complaint[]> => {
+    const res: any = (await api('/auth/allComplaint'));
+
+    complaints.value = res?.[0];
+
+    return complaints.value;
+  };
+
+  const get = async (id: number): Promise<Complaint> => {
+    const res: any = (await api(`/auth/DetailComplaint/${id}`));
+
+    complaint.value = res;
+
+    return complaint.value;
+  };
+
+  return {
+    complaint,
+    complaints,
+
+    headers,
+    list,
+    get
+  };
+});

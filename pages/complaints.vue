@@ -1,16 +1,13 @@
 <template>
   <v-container>
-    <div class="my-4">
-      <h1 class="text-3xl font-semibold text-secondary mb-2">
-        Complaints List
-      </h1>
+    <base-title-section
+      title="Complaints List"
+      subtitle="List All Complaints assigned to drivers"
+    />
 
-      <div class="text-gray-500 text-sm">
-        List All Complaints assigned to drivers
-      </div>
-    </div>
+    <placeholder-loading v-if="pending" name="Complaints" />
 
-    <v-row>
+    <v-row v-else>
       <v-col cols="12">
         <v-card class="!shadow-sm">
           <v-data-table
@@ -19,37 +16,28 @@
             class="rounded-lg"
           >
             <template #item.complaint="{ item }">
-              <div class="flex items-center gap-2 my-4 max-w-[700px] overflow-hidden whitespace-no-wrap">
+              <div
+                class="flex items-center gap-2 my-4 max-w-[700px] overflow-hidden whitespace-no-wrap"
+              >
                 <v-avatar
-                  icon="mdi-file-outline"
-                  color="blue"
+                  icon="question-mark"
+                  color="gray"
                   class="text-white"
                   size="small"
                 />
 
-                <div class="text-gray-400 font-medium text-sm">{{ item.complaint }}</div>
+                <div class="text-gray-400 font-medium text-sm">
+                  {{ item.complaint }}
+                </div>
               </div>
             </template>
 
-            <template #item.driver="{ item }">
-                <v-chip color="secondary">{{ item.driver_name }}</v-chip>
+            <template #item.order_id="{ item }">
+              <v-chip color="secondary">Order #{{ item.order_id }}</v-chip>
             </template>
 
             <template #item.date="{ item }">
-                <v-chip color="success">{{ item.created_at }}</v-chip>
-            </template>
-
-            <template #item.actions="{ item }">
-              <div class="flex justify-end">
-                <v-btn
-                  color="blue"
-                  rounded="lg"
-                  size="x-small"
-                  variant="tonal"
-                  icon="mdi-eye-outline"
-                  :to="`/complaints/${item.id}`"
-                ></v-btn>
-              </div>
+              <v-chip color="success">{{ dayjs(item.created_at).format('DD-MM-YYYY') }}</v-chip>
             </template>
           </v-data-table>
         </v-card>
@@ -60,39 +48,43 @@
   <NuxtPage />
 </template>
 
-<script setup>
+<script setup lang="ts">
+import dayjs from 'dayjs';
+
 const complaintStore = useComplaintStore();
 
-const { headers } = storeToRefs(complaintStore);
+const { headers, complaints } = storeToRefs(complaintStore);
 
-const complaints = [
-  {
-    id: 1,
-    complaint:
-      'this si test string for complaint and not real data, this si test string for complaint and not real data, this si test string for complaint and not real data',
-    created_at: '20/2/2003',
-    driver_name: 'Massoud Sebki'
-  },
-  {
-    id: 2,
-    complaint:
-      'this si test string for complaint and not real data, this si test string for complaint and not real data, this si test string for complaint and not real data',
-    created_at: '20/2/2003',
-    driver_name: 'Massoud Sebki'
-  },
-  {
-    id: 3,
-    complaint:
-      'this si test string for complaint and not real data, this si test string for complaint and not real data, this si test string for complaint and not real data',
-    created_at: '20/2/2003',
-    driver_name: 'Massoud Sebki'
-  },
-  {
-    id: 4,
-    complaint:
-      'this si test string for complaint and not real data, this si test string for complaint and not real data, this si test string for complaint and not real data',
-    created_at: '20/2/2003',
-    driver_name: 'Massoud Sebki'
-  },
-];
+const { pending } = useLazyAsyncData(() => complaintStore.list())
+
+// const complaints = [
+//   {
+//     id: 1,
+//     complaint:
+//       'this si test string for complaint and not real data, this si test string for complaint and not real data, this si test string for complaint and not real data',
+//     created_at: '20/2/2003',
+//     driver_name: 'Massoud Sebki',
+//   },
+//   {
+//     id: 2,
+//     complaint:
+//       'this si test string for complaint and not real data, this si test string for complaint and not real data, this si test string for complaint and not real data',
+//     created_at: '20/2/2003',
+//     driver_name: 'Massoud Sebki',
+//   },
+//   {
+//     id: 3,
+//     complaint:
+//       'this si test string for complaint and not real data, this si test string for complaint and not real data, this si test string for complaint and not real data',
+//     created_at: '20/2/2003',
+//     driver_name: 'Massoud Sebki',
+//   },
+//   {
+//     id: 4,
+//     complaint:
+//       'this si test string for complaint and not real data, this si test string for complaint and not real data, this si test string for complaint and not real data',
+//     created_at: '20/2/2003',
+//     driver_name: 'Massoud Sebki',
+//   },
+// ];
 </script>
