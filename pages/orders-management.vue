@@ -21,10 +21,9 @@
 
           <div class="h-[300px] overflow-auto">
             <draggable
-              v-model="drivers"
+              :list="drivers"
               @start="(el) => (selectedDriver = drivers[el.oldIndex])"
               handle=""
-              :list="drivers"
               key="id"
               class="list-group"
               ghost-class="ghost"
@@ -159,7 +158,7 @@ const isDriverPending = (driverId: number) =>
  
 
 const readyOrders = computed(() =>
-  orders.value.filter((order) => order.status == 'Ready')
+  orders.value?.filter((order) => order.status == 'Ready')
 );
 
 const assignDriver = async (order: Order) => {
