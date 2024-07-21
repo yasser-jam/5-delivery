@@ -50,18 +50,8 @@
         space-between="30"
         :centered-slides="false"
       >
-        <SwiperSlide>
-          <complaint-card class="mb-2"></complaint-card>
-        </SwiperSlide>
-        <SwiperSlide>
-          <complaint-card class="mb-2"></complaint-card>
-        </SwiperSlide>
-
-        <SwiperSlide>
-          <complaint-card class="mb-2"></complaint-card>
-        </SwiperSlide>
-        <SwiperSlide>
-          <complaint-card class="mb-2"></complaint-card>
+        <SwiperSlide v-for="complaint in driver.complaints">
+          <complaint-card :complaint class="mb-2"></complaint-card>
         </SwiperSlide>
       </Swiper>
     </div>

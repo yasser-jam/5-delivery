@@ -11,11 +11,16 @@
       ></v-avatar>
 
       <div class="text-sm text-center text-gray-500">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque
-        possimus ullam assumenda...
+        {{ complaint.complaint }}
       </div>
 
-      <v-chip color="primary" class="mt-2">Order: #1</v-chip>
+      <v-chip color="primary" class="mt-2">Order: #{{ complaint.order_id }}</v-chip>
     </div>
   </base-card>
 </template>
+
+<script setup lang="ts">
+defineProps<{
+  complaint: Complaint
+}>()
+</script>
