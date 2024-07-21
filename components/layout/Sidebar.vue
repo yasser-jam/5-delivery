@@ -16,8 +16,7 @@
     <v-list-item
       class="text-center"
       lines="two"
-      subtitle="Delivery Admin"
-      title="Yasser Jamal Al-Deen"
+      title="Delivery Admin"
     >
     </v-list-item>
   </v-list>
