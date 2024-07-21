@@ -79,7 +79,7 @@
             <div>Assigned Orders</div>
           </div>
 
-          <placeholder-empty v-if="!assignedOrders.length" name="Assigned Orders" />
+          <placeholder-empty v-if="!assignedOrders?.length" name="Assigned Orders" />
 
           <div v-else class="max-h-[300px]  flow-auto">
             <order-deliver-card
@@ -106,7 +106,7 @@
             <div>Under Delivery Orders</div>
           </div>
 
-          <placeholder-empty v-if="!activeOrders.length" name="Under Delivery Orders" />
+          <placeholder-empty v-if="!activeOrders?.length" name="Under Delivery Orders" />
           
           <div v-else class="max-h-[300px] overflow-auto">
             <order-deliver-card
