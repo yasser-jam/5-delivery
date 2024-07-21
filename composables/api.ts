@@ -11,7 +11,12 @@ export const api = (url: string, options?: any) => {
                 Authorization: `Bearer ${accessToken.value}`           
             },
         })
-    } catch (error) {
+    } catch (error: any) {
         console.log(error);
+
+        // switch (error.status) {
+        //     case '500'
+        //     navigateTo('/login')
+        // }
     }
 }
