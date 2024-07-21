@@ -85,7 +85,7 @@
 
           <placeholder-empty v-if="!assignedOrders?.length" name="Assigned Orders" />
 
-          <div v-else class="max-h-[300px]  flow-auto">
+          <div v-else class="max-h-[300px] overflow-auto">
             <order-deliver-card
               v-for="order in assignedOrders"
               :order

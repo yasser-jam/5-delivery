@@ -5,7 +5,7 @@ export interface Driver {
   password: string;
   password_confirmation: string;
   phone: string;
-  status: 'Inactive' | 'Active';
+  status?: 'Inactive' | 'Active';
   complaints?: any[];
   points?: number
 }
@@ -17,7 +17,7 @@ export interface Complaint {
   driver_name?: string;
   order_id: string;
   order?: Order;
-  delivery_worker_id: string;
+  delivery_worker_id?: string;
   user_id: string;
   user?: User;
 }

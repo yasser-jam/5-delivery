@@ -5,10 +5,12 @@ export const initDriver = () : Driver => ({
     password: '',
     password_confirmation: '',
     phone: '',
-    status: 'Inactive',
 })
 
 export const initComplaint = () : Complaint => ({
     complaint: '',
-    created_at: ''
+    order_id: '',
+    user_id: '',
+    created_at: '',
+
 })

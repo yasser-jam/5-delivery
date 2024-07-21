@@ -53,7 +53,7 @@
           No Assigned Driver
         </placeholder-empty>
 
-        <driver-card v-else :driver="order.delivery_worker" />
+        <driver-card v-else is-active :driver="order.delivery_worker" />
       </v-col>
 
       <v-col cols="12" md="6" class="mb-4">
