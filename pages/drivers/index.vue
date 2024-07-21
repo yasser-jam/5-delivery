@@ -12,12 +12,7 @@
 
     <v-row v-else-if="!pending && drivers.length">
       <v-col v-for="driver in drivers" cols="12" md="4">
-        <nuxt-link
-          :to="`/drivers/details/${driver.id}`"
-          class="decoration-none"
-        >
-          <driver-card :driver editable />
-        </nuxt-link>
+        <driver-card :driver editable :is-active="driver.status == 'Active'" />
       </v-col>
     </v-row>
 
