@@ -141,8 +141,6 @@ const submit = async () => {
     
     else await driverStore.create();
 
-    // relist drivers
-    await driverStore.list()
   } finally {
     loading.value = false;
 

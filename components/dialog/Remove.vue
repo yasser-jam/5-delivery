@@ -1,6 +1,6 @@
 <template>
   <v-dialog width="400" @click:outside="$emit('update:model-value', false)">
-    <v-card :loading :disabled="loading" class="py-4 px-4">
+    <base-card :loading color="error" :disabled="loading">
       <template v-slot:loader="{ isActive }">
         <v-progress-linear
           :active="isActive"
@@ -26,9 +26,9 @@
           @click="$emit('update:model-value', false)"
           >Close</v-btn
         >
-        <v-btn color="error">Delete</v-btn>
+        <v-btn color="error" :loading @click="$emit('remove')">Delete</v-btn>
       </div>
-    </v-card>
+    </base-card>
   </v-dialog>
 </template>
 

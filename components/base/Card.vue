@@ -20,7 +20,7 @@
 <script setup lang=ts>
 withDefaults(defineProps<{
     loading?: boolean
-    color?: 'primary' | 'success' | 'blue'
+    color?: 'primary' | 'success' | 'blue' | 'error'
 }>(), {
   color: 'primary'
 })

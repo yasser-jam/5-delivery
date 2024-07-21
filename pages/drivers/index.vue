@@ -12,7 +12,12 @@
 
     <v-row v-else-if="!pending && drivers.length">
       <v-col v-for="driver in drivers" cols="12" md="4">
-        <driver-card :driver editable :is-active="driver.status == 'Active'" />
+        <driver-card
+          :driver
+          editable
+          :is-active="driver.status == 'Active'"
+          @remove="openDeleteDialog(Number(driver.id))"
+        />
       </v-col>
     </v-row>
 
@@ -22,7 +27,7 @@
   <dialog-remove
     v-model="deleteDialogToggler"
     :loading="deleteLoading"
-    @delete="remove"
+    @remove="remove"
     item="driver"
   />
 
@@ -51,7 +56,11 @@ const remove = async () => {
   try {
     await driverStore.remove(Number(deletedId.value));
   } finally {
+    // stop loader
     deleteLoading.value = false;
+
+    // close dialog
+    deleteDialogToggler.value = false
   }
 };
 </script>

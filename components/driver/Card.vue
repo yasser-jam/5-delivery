@@ -50,7 +50,7 @@
           </div>
         </v-list-item>
 
-        <v-list-item :to="`/drivers/${driver.id}`">
+        <v-list-item @click="$emit('remove')">
           <div class="flex gap-2 py-2 px-2">
             <v-icon color="error" size="small">mdi-trash-can</v-icon>
             <div class="font-medium text-sm text-gray-500">Delete</div>
