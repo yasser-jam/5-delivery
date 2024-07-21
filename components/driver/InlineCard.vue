@@ -8,6 +8,11 @@
       {{ driver.name }}
     </div>
 
+    <div class="flex gap-4">
+      <v-chip v-if="pending">Pending</v-chip>
+      <v-chip v-if="onWay">On-Way</v-chip>
+    </div>
+
     <v-icon size="2rem" color="amber" class="cursor-pointer">mdi-drag</v-icon>
   </div>
 </template>
@@ -15,6 +20,8 @@
 <script setup lang="ts">
 defineProps<{
   driver: Driver;
+  pending?: boolean
+  onWay?: boolean
 }>();
 </script>
 

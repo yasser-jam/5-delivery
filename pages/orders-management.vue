@@ -32,6 +32,8 @@
               <template #item="{ element }">
                 <driver-inline-card
                   :driver="element"
+                  :on-way="isDriverOnWay(element.id)"
+                  :pending="isDriverPending(element.id)"
                   class="mb-2"
                 ></driver-inline-card>
               </template>
@@ -116,8 +118,8 @@
 
   <dialog-confirm-order
     v-model="confirmDialog"
-    :driver="selectedDriver as Driver"
-    :order="selectedOrder as Order"
+    :driver="selectedDriver"
+    :order="selectedOrder"
   />
 </template>
 
@@ -126,6 +128,14 @@ import draggable from 'vuedraggable';
 
 const driverStore = useDriverStore();
 const orderStore = useOrderStore();
+
+const { orders, activeOrders, assignedOrders } = storeToRefs(orderStore);
+const { drivers } = storeToRefs(driverStore);
+
+const selectedDriver = ref<Driver>({} as Driver);
+const selectedOrder = ref<Order>({} as Order);
+
+const confirmDialog = ref(false);
 
 const { pending: driversLoading } = useLazyAsyncData(() =>
   driverStore.listActive()
@@ -139,13 +149,14 @@ const { pending: assignOrdersLoading } = useLazyAsyncData(() =>
   orderStore.listAssigned()
 );
 
-const { orders, activeOrders, assignedOrders } = storeToRefs(orderStore);
-const { drivers } = storeToRefs(driverStore);
+// check if the driver on way to deliver order
+const isDriverOnWay = (driverId: number) => 
+ activeOrders.value.findIndex(order => Number(order.delivery_worker_id) == driverId) > -1
 
-const selectedDriver = ref<Driver>();
-const selectedOrder = ref<Order>();
-
-const confirmDialog = ref(false);
+ // check if the driver pending to confirm order
+const isDriverPending = (driverId: number) => 
+ assignedOrders.value.findIndex(order => Number(order.delivery_worker_id) == driverId) > -1
+ 
 
 const readyOrders = computed(() =>
   orders.value.filter((order) => order.status == 'Ready')
