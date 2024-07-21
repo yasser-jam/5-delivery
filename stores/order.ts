@@ -70,7 +70,11 @@ export const useOrderStore = defineStore('order', () => {
     }
 
     const getPosition = async () => {
-      return await api('')
+      // return await api('')
+      return {
+        x: 10,
+        y: 100
+      }
     }
 
     return {

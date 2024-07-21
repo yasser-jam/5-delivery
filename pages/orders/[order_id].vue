@@ -4,7 +4,7 @@
   <v-container v-else>
     <v-row>
       <v-col cols="12" class="mb-2">
-        <order-timeline></order-timeline>
+        <order-timeline :status="order.delivery_worker_id ? 'assigned' : 'ready'" />
       </v-col>
 
       <v-col cols="12" md="6">
@@ -34,7 +34,7 @@
       <v-col cols="12" md="8">
         <div class="text-xl font-medium text-gray-400 mb-2">Order Address</div>
 
-        <order-map :order is-done></order-map>
+        <order-map :order :is-assigned="Boolean(order.delivery_worker_id)"></order-map>
       </v-col>
     </v-row>
   </v-container>
