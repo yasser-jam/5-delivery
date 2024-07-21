@@ -21,9 +21,7 @@
     </v-timeline-item>
 
     <v-timeline-item>
-      <template v-slot:opposite>
-        <div class="text-gray-500">Done</div>
-      </template>
+      <div class="text-gray-500">Done</div>
     </v-timeline-item>
   </v-timeline>
 </template>

@@ -2,6 +2,29 @@
   <placeholder-loading v-if="pending" name="Order" class="my-4" />
 
   <v-container v-else>
+
+    <div class="flex justify-between items-center mt-8 mb-2">
+      <div>
+        <div class="text-4xl text-primary font-semibold">Order #1 <span class="text-amber-300 text-xl">(Italian Restaurant)</span> </div>
+
+        <div class="flex gap-2 items-center text-gray-500 mt-4">
+          <div class="flex items-center gap-2">
+            <v-icon>mdi-calendar</v-icon>
+            <div>20/2/2003</div>
+          </div>
+
+          <div>/</div>
+
+          <div class="flex items-center gap-2">
+            <v-icon>mdi-cash</v-icon>
+            <div>1000S.P</div>
+          </div>
+        </div>
+      </div>
+
+      <v-chip size="large" color="blue">Ready</v-chip>
+    </div>
+
     <v-row>
       <v-col cols="12" class="mb-2">
         <order-timeline :status="order.delivery_worker_id ? 'assigned' : 'ready'" />
