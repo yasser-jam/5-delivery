@@ -2,7 +2,7 @@
   <v-container>
     <base-title-section
       title="Orders List"
-      subtitle="List all Orders (In-progress and Ready)"
+      subtitle="List all available Orders"
     />
 
     <v-row>

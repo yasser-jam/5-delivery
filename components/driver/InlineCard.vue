@@ -2,8 +2,6 @@
   <div
     class="flex items-center justify-between p-6 bg-amber-50 rounded-lg border-2 border-dashed border-amber relative"
   >
-    <!-- <v-icon class="bg-icon">mdi-moped</v-icon> -->
-
     <div class="text-amber font-semibold text-2xl">
       {{ driver.name }}
     </div>
@@ -13,7 +11,7 @@
       <v-chip v-if="onWay">On-Way</v-chip>
     </div>
 
-    <v-icon size="2rem" color="amber" class="cursor-pointer">mdi-drag</v-icon>
+    <v-icon size="2rem" color="amber" class="handle cursor-pointer">mdi-drag</v-icon>
   </div>
 </template>
 

@@ -26,6 +26,10 @@
     <v-chip class="text-teal">{{
       dayjs(order?.order_date).format('DD-MM-YYYY')
     }}</v-chip>
+
+    <div v-if="isOverDropZone" class="overlay rounded-lg">
+      Drop To Assign
+    </div>
   </div>
 </template>
 
@@ -50,3 +54,19 @@ const { isOverDropZone } = useDropZone(el, {
   onDrop,
 });
 </script>
+
+<style scoped>
+.overlay {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 1rem;
+  color: white;
+  background: rgba(0, 0, 0, .75)
+}
+</style>

@@ -23,7 +23,7 @@
             <draggable
               :list="drivers"
               @start="(el) => (selectedDriver = drivers[el.oldIndex])"
-              handle=""
+              handle=".handle"
               key="id"
               class="list-group"
               ghost-class="ghost"
@@ -65,28 +65,6 @@
         </base-card>
       </v-col>
 
-      <!-- <v-col cols="12" md="6">
-        <base-card
-          :loading="activeOrdersLoading"
-          class="!shadow-sm !bg-gray-50 rounded-lg p-4"
-        >
-          <div
-            class="flex gap-2 items-center text-gray text-xl font-medium mb-4"
-          >
-            <v-icon>mdi-package</v-icon>
-
-            <div>Pending Orders</div>
-          </div>
-
-          <div class="max-h-[300px] overflow-auto">
-            <order-deliver-card
-              status="pending"
-              class="mb-2"
-            ></order-deliver-card>
-          </div>
-        </base-card>
-      </v-col> -->
-
       <v-col cols="12">
         <base-card
           :loading="assignOrdersLoading"
@@ -101,12 +79,41 @@
             <div>Assigned Orders</div>
           </div>
 
-          <div class="max-h-[300px] overflow-auto">
+          <placeholder-empty v-if="!assignedOrders.length" name="Assigned Orders" />
+
+          <div v-else class="max-h-[300px]  flow-auto">
             <order-deliver-card
               v-for="order in assignedOrders"
               :order
               :driver="drivers.find(driver => driver.id == order.delivery_worker_id as any) as Driver"
               status="pending"
+              class="mb-2"
+            ></order-deliver-card>
+          </div>
+        </base-card>
+      </v-col>
+
+      <v-col cols="12">
+        <base-card
+          :loading="activeOrdersLoading"
+          class="!shadow-sm !bg-gray-50 rounded-lg p-4"
+        >
+          <div
+            class="flex gap-2 items-center text-primary text-xl font-medium mb-4"
+          >
+            <v-icon>mdi-moped-electric</v-icon>
+
+            <div>Under Delivery Orders</div>
+          </div>
+
+          <placeholder-empty v-if="!activeOrders.length" name="Under Delivery Orders" />
+          
+          <div v-else class="max-h-[300px] overflow-auto">
+            <order-deliver-card
+              v-for="order in activeOrders"
+              :driver="drivers.find(driver => driver.id == order.delivery_worker_id as any) as Driver"
+              :order
+              status="in_progress"
               class="mb-2"
             ></order-deliver-card>
           </div>
@@ -149,13 +156,16 @@ const { pending: assignOrdersLoading } = useLazyAsyncData(() =>
 );
 
 // check if the driver on way to deliver order
-const isDriverOnWay = (driverId: number) => 
- activeOrders.value.findIndex(order => Number(order.delivery_worker_id) == driverId) > -1
+const isDriverOnWay = (driverId: number) =>
+  activeOrders.value.findIndex(
+    (order) => Number(order.delivery_worker_id) == driverId
+  ) > -1;
 
- // check if the driver pending to confirm order
-const isDriverPending = (driverId: number) => 
- assignedOrders.value.findIndex(order => Number(order.delivery_worker_id) == driverId) > -1
- 
+// check if the driver pending to confirm order
+const isDriverPending = (driverId: number) =>
+  assignedOrders.value.findIndex(
+    (order) => Number(order.delivery_worker_id) == driverId
+  ) > -1;
 
 const readyOrders = computed(() =>
   orders.value?.filter((order) => order.status == 'Ready')
