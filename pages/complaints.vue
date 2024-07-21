@@ -16,20 +16,22 @@
             class="rounded-lg"
           >
             <template #item.complaint="{ item }">
-              <div
-                class="flex items-center gap-2 my-4 max-w-[700px] overflow-hidden whitespace-no-wrap"
-              >
-                <v-avatar
-                  icon="question-mark"
-                  color="gray"
-                  class="text-white"
-                  size="small"
-                />
-
-                <div class="text-gray-400 font-medium text-sm">
-                  {{ item.complaint }}
+              <nuxt-link class="decoration-none" :to="`/complaints/${item.id}`">
+                <div
+                  class="flex items-center gap-2 my-4 max-w-[700px] overflow-hidden whitespace-no-wrap"
+                >
+                  <v-avatar
+                    icon="mdi-exclamation"
+                    color="grey"
+                    class="text-white"
+                    size="small"
+                  />
+  
+                  <div class="text-gray-400 font-medium text-sm">
+                    {{ item.complaint }}
+                  </div>
                 </div>
-              </div>
+              </nuxt-link>
             </template>
 
             <template #item.order_id="{ item }">

@@ -82,7 +82,7 @@ const updateMarkerPosition = async () => {
 }
 
 onMounted(() => {
-  initMap()
+  if (props.isAssigned) initMap()
 
   setInterval(async () => {
     await updateMarkerPosition()

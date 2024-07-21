@@ -18,8 +18,8 @@ export const api = (url: string, options?: any) => {
         toasterStore.showErrorMsg('Unauthorized!');
         break;
       case 500:
-        accessToken.value = null
-        navigateTo('/login');
+        // accessToken.value = null
+        // navigateTo('/login');
         toasterStore.showErrorMsg('Something Went Wrong, Please Try Again');
         break;
       default:

@@ -1,10 +1,8 @@
 <template>
   <div
-    class="flex items-center py-6 px-6 bg-amber-50 rounded-lg border-2 border-dashed border-amber relative"
+    class="flex items-center p6 bg-amber-50 rounded-lg border-2 border-dashed border-amber relative"
   >
-    <v-icon class="bg-icon">mdi-moped</v-icon>
-
-    <div class="flex flex-col gap-4">
+    <div class="flex flex-col justify-between items-center gap-4">
       <div>
         <div class="text-amber font-semibold text-2xl">
           {{ driver.name }}
@@ -18,10 +16,12 @@
           <div>{{ driver.phone }}</div>
         </div>
       </div>
+
+      <v-icon class="bg-icon">mdi-moped</v-icon>
     </div>
 
     <v-btn
-    v-if="editable"
+      v-if="editable"
       class="!absolute top-2 right-2 z-50"
       color="amber"
       variant="text"

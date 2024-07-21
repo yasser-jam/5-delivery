@@ -1,8 +1,5 @@
 <template>
-    <div class="flex items-center py-6 px-6 bg-violet-50 rounded-lg relative">
-
-        <v-icon class="bg-icon">mdi-account</v-icon>
-
+    <div class="flex justify-between items-center py-6 px-6 bg-violet-50 rounded-lg relative border-2 border-dashed border-violet">
         <div class="flex flex-col gap-4">
             <div>
                 <div class="text-violet font-semibold text-2xl">
@@ -21,6 +18,9 @@
 
         </div>
 
+        <v-icon class="bg-icon">mdi-account</v-icon>
+
+
     </div>
 </template>
 
@@ -32,10 +32,7 @@ defineProps<{
 
 <style scoped>
 .bg-icon {
-    position: absolute;
-    right: 2rem;
-    top: .25rem;
-    font-size: 7rem;
+    font-size: 6rem;
     z-index: 1;
     color: #a78bfa44
 }

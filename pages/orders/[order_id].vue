@@ -26,8 +26,6 @@
 
         <div class="max-h-[300px] overflow-auto">
           <meal-card v-for="meal in order.meals" :meal class="mb-2" />
-          <meal-card v-for="meal in order.meals" :meal class="mb-2" />
-          <meal-card v-for="meal in order.meals" :meal class="mb-2" />
         </div>
       </v-col>
 

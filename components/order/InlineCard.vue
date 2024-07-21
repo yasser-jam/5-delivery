@@ -50,14 +50,3 @@ const { isOverDropZone } = useDropZone(el, {
   onDrop,
 });
 </script>
-
-<style scoped>
-.bg-icon {
-  position: absolute;
-  right: 2rem;
-  top: 0.25rem;
-  font-size: 4rem;
-  z-index: 1;
-  color: #ffc10722;
-}
-</style>

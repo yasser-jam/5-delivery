@@ -53,7 +53,11 @@ export const useOrderStore = defineStore('order', () => {
     const get = async (id: number) : Promise<Order> => {
       const res : any = await api(`/auth/getOrderDetails/${id}`)
 
-      order.value = res
+      order.value = {
+        ...res,
+        ...res.order,
+        order: undefined
+      }
 
       return order.value
     }

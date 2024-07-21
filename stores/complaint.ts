@@ -24,7 +24,7 @@ export const useComplaintStore = defineStore('complaint', () => {
   const get = async (id: number): Promise<Complaint> => {
     const res: any = (await api(`/auth/DetailComplaint/${id}`));
 
-    complaint.value = res;
+    complaint.value = res?.[0]?.[0];
 
     return complaint.value;
   };
