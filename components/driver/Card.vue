@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex justify-between items-center p-6 rounded-lg border-2 border-dashed relative"
+    class="flex justify-between items-center p-4 rounded-lg border-2 border-dashed relative"
     :class="isActive ? 'border-amber bg-amber-50' : 'border-gray bg-gray-50'"
   >
     <div>

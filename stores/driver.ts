@@ -81,10 +81,30 @@ export const useDriverStore = defineStore('driver', () => {
     toasterStore.showSuccessMsg('Driver Removed Successfully!');
   };
 
+
+  // get driver address
+
+  interface Address {
+    address_name: string
+    x: number
+    y: number
+  }
+
+  const driverAddress = ref<Address>({} as Address)
+
+  const getPosition = async (id: number) => {
+    const res =  await api(`/auth/getDeliveryAddresses/${id}`) as Address[]
+
+    driverAddress.value = res?.[0]
+    
+    return driverAddress.value
+  }
+
   return {
     driver,
     drivers,
 
+    driverAddress,
     headers,
 
     reset,
@@ -94,5 +114,6 @@ export const useDriverStore = defineStore('driver', () => {
     update,
     create,
     remove,
+    getPosition
   };
 });

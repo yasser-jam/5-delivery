@@ -34,7 +34,13 @@
     <v-row>
       <v-col cols="12" class="mb-2">
         <order-timeline
-          :status="order.delivery_worker_id ? 'assigned' : 'ready'"
+          :status="
+            order.delivery_worker
+              ? order.status == 'Ready'
+                ? 'assigned'
+                : 'on-way'
+              : 'ready'
+          "
         />
       </v-col>
 
@@ -67,7 +73,11 @@
       <v-col cols="12" md="8">
         <div class="text-xl font-medium text-gray-400 mb-2">Order Address</div>
 
-        <!-- <order-map :order :is-assigned="Boolean(order.delivery_worker_id)"></order-map> -->
+        <placeholder-empty
+          v-if="!order.delivery_worker || order.status == 'Ready'"
+          >This order is not under delivery yet!</placeholder-empty
+        >
+        <order-map v-else :driver="order.delivery_worker"></order-map>
       </v-col>
     </v-row>
   </v-container>

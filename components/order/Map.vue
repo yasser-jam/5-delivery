@@ -1,15 +1,5 @@
 <template>
-  <div
-    v-if="!isAssigned"
-    class="flex items-center justify-center h-[300px] border-2 border-dashed border-gray text-xl text-gray bg-gray-50 py-2 px-4"
-  >
-    <v-icon color="gray">mdi-map</v-icon>
-    Not Assigned Yet
-  </div>
-
-  <div v-else id="map" class="h-[300px] w-full"></div>
-
-  <div></div>
+  <div id="map" class="h-[300px] w-full"></div>
 
   <link
     rel="stylesheet"
@@ -29,13 +19,12 @@ useHead({
 });
 
 const props = defineProps<{
-  order: Order;
-  isAssigned: boolean;
+  driver: Driver;
 }>();
 
-const orderStore = useOrderStore()
+const driverStore = useDriverStore();
 
-const lat = ref(37.102);
+const { driverAddress } = storeToRefs(driverStore);
 
 let map: any;
 let marker: any;
@@ -54,38 +43,27 @@ const initMap = () => {
 
   // @ts-ignore
   marker = window.L.marker(initialPosition).addTo(map);
-}
+};
 
 const updateMarkerPosition = async () => {
-  // Here you would fetch the new coordinates from your server or another source
-  // For demonstration purposes, we'll just update the position randomly
-
-  let coordinates = {
-    x: 10,
-    y: 100
-  }
-
   try {
-    coordinates = await orderStore.getPosition()
+    await driverStore.getPosition(Number(props.driver.id));
   } catch (error) {
     console.log(error);
   }
 
-  // Todo: replace new position with value from getPosition
-  const newPosition = [
-    marker.getLatLng().lat + (Math.random() - 0.5) * 0.01,
-    marker.getLatLng().lng + (Math.random() - 0.5) * 0.01,
-  ];
+  // lat: y, lng: x
+  const newPosition = [driverAddress.value.y, driverAddress.value.x];
+
+  console.log(newPosition);
 
   marker.setLatLng(newPosition);
   map.setView(newPosition, map.getZoom());
-}
+};
 
 onMounted(() => {
-  if (props.isAssigned) initMap()
-
   setInterval(async () => {
-    await updateMarkerPosition()
-  }, 1000)
-})
+    // await updateMarkerPosition();
+  }, 1000);
+});
 </script>

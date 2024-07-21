@@ -74,14 +74,6 @@ export const useOrderStore = defineStore('order', () => {
       toasterStore.showSuccessMsg('Order Assigned Successfully!')
     }
 
-    const getPosition = async () => {
-      // return await api('')
-      return {
-        x: 10,
-        y: 100
-      }
-    }
-
     return {
       order,
       orders,
@@ -94,8 +86,7 @@ export const useOrderStore = defineStore('order', () => {
       listUnderDelivery,
       listAssigned,
       get,
-      assign,
-      getPosition
+      assign
     };
   });
   
