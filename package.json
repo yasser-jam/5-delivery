@@ -12,6 +12,7 @@
   "dependencies": {
     "@nuxt/eslint": "^0.3.13",
     "@pinia/nuxt": "^0.5.1",
+    "@vee-validate/i18n": "^4.13.2",
     "@vee-validate/nuxt": "^4.13.2",
     "@vee-validate/rules": "^4.13.2",
     "@vueuse/core": "^10.11.0",

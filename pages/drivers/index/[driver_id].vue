@@ -44,12 +44,13 @@
             <Field
               v-model="driver.phone"
               name="phone"
-              rules="required"
+              rules="required|min:10|numeric"
               v-slot="{ field }"
             >
               <v-text-field
                 v-bind="field"
                 density="compact"
+                type="number"
                 placeholder="09xxxxxxxx"
                 :error-messages="errors.phone"
               ></v-text-field>
@@ -79,7 +80,7 @@
             <Field
               v-model="driver.password_confirmation"
               name="password_confirmation"
-              rules="required"
+              :rules="{ required: true, is: driver.password }"
               v-slot="{ field }"
             >
               <v-text-field

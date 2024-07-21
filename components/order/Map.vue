@@ -65,8 +65,8 @@ onMounted(() => {
 
   initMap()
 
-  setInterval(async () => {
-    await updateMarkerPosition();
-  }, 1000);
+  // setInterval(async () => {
+  //   await updateMarkerPosition();
+  // }, 1000);
 });
 </script>
