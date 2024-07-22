@@ -7,17 +7,17 @@ export interface Driver {
   phone: string;
   status?: 'Inactive' | 'Active';
   complaints?: any[];
-  points?: number
+  points?: number;
 }
 
 export interface Complaint {
   id?: number;
   complaint: string;
   created_at: string;
-  driver_name?: string;
   order_id: string;
   order?: Order;
   delivery_worker_id?: string;
+  delivery_worker?: Driver;
   user_id: string;
   user?: User;
 }
