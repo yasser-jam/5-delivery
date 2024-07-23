@@ -11,6 +11,8 @@ export const useAuthStore = defineStore('auth', () => {
     // set cookie
     accessToken.value = res?.token
 
+    navigateTo('/')
+
     return res;
   };
 

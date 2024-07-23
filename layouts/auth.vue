@@ -28,20 +28,27 @@
         class="flex items-center justify-center w-full h-full bg-[#fcfcfc]"
       ></div>
     </v-main>
+
+    <base-toaster v-model="showToaster" :status="toasterStatus" :msg />
+
   </v-app>
 </template>
 
-<script setup></script>
+<script setup>
+import { useToasterStore } from '~/stores/toaster';
+
+const toasterStore = useToasterStore()
+
+const { msg, showToaster, toasterStatus } = storeToRefs(toasterStore)
+
+
+</script>
 
 
 <style scoped>
 
 @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Marck+Script&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Playwrite+NO:wght@100..400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Marck+Script&family=Playwrite+NO:wght@100..400&display=swap');
 .subtitle {
-    /* font-family: "Marck Script", cursive */
     font-family: "Laboster", cursive;
 }
 </style>
