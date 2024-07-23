@@ -70,7 +70,7 @@ const submit = async () => {
   try {
     await authStore.login(user.value);
 
-    if (accessToken.value?.length) navigateTo('/drivers')
+    navigateTo('/drivers')
   } finally {
     loading.value = false;
   }
