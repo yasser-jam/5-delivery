@@ -55,9 +55,8 @@ const updateMarkerPosition = async () => {
   // lat: y, lng: x
   const newPosition = [driverAddress.value.y, driverAddress.value.x];
 
-  console.log(newPosition);
+  marker?.setLatLng(newPosition);
 
-  marker.setLatLng(newPosition);
   map.setView(newPosition, map.getZoom());
 };
 
@@ -66,7 +65,17 @@ onMounted(() => {
   initMap()
 
   setInterval(async () => {
+
+    // await api('/auth/updateAddress/4', {
+    //   method: 'POST',
+    //   body: {
+    //     address_name: 'test street',
+    //     x: 38.4 + counter++,
+    //     y: 36.9 + counter++
+    //   }
+    // })
+
     await updateMarkerPosition();
-  }, 1000);
+  }, 2000);
 });
 </script>
