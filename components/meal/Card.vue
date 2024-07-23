@@ -26,7 +26,7 @@
         </div>
 
         <div v-if="meal.photo?.length" class="w-24 h-24">
-            <img :src="`https://5delivery.store/DeliveryApp/upload/${meal.photo}`" class="w-full rounded-full" alt="meal-photo">
+            <img :src="`https://5delivery.store/DeliveryApp/public/upload/${meal.photo}`" class="w-full rounded-full" alt="meal-photo">
         </div>
 
         <v-icon v-else class="bg-icon">mdi-food</v-icon>
