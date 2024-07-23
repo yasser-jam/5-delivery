@@ -15,7 +15,7 @@ export const api = (url: string, options?: any) => {
 
     switch (error.status) {
       case 404:
-        toasterStore.showErrorMsg('Not Found!');
+        // toasterStore.showErrorMsg('Not Found!');
         break;
       case 401:
         toasterStore.showErrorMsg('Unauthorized!');

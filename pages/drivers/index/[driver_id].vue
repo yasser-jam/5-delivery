@@ -50,7 +50,6 @@
               <v-text-field
                 v-bind="field"
                 density="compact"
-                type="number"
                 placeholder="09xxxxxxxx"
                 :error-messages="errors.phone"
               ></v-text-field>
@@ -62,7 +61,7 @@
             <Field
               v-model="driver.password"
               name="password"
-              rules="required"
+              rules="required|min:5"
               v-slot="{ field }"
             >
               <v-text-field
@@ -70,7 +69,7 @@
                 density="compact"
                 type="password"
                 placeholder="********"
-                :error-messages="errors.name"
+                :error-messages="errors.password"
               ></v-text-field>
             </Field>
           </v-col>
