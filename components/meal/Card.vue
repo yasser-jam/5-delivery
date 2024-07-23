@@ -24,7 +24,12 @@
 
             <!-- <div class="text-sm text-blue-500">Lorem ipsum dolor sit amet consectetur, dolore? Cupiditate deleniti enim</div> -->
         </div>
-        <v-icon class="bg-icon">mdi-food</v-icon>
+
+        <div v-if="meal.photo?.length" class="w-24 h-24">
+            <img :src="`https://5delivery.store/DeliveryApp/upload/${meal.photo}`" class="w-full rounded-full" alt="meal-photo">
+        </div>
+
+        <v-icon v-else class="bg-icon">mdi-food</v-icon>
 
     </div>
 </template>
