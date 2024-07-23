@@ -56,7 +56,7 @@ export const useOrderStore = defineStore('order', () => {
       order.value = {
         ...res,
         ...res.order,
-        order: undefined
+        delivery_worker: res?.delivery_worker?.[0]
       }
 
       return order.value

@@ -3,8 +3,8 @@ export const api = (url: string, options?: any) => {
 
   const accessToken = useCookie('5d_access_token');
 
-  // const BASE_URL = 'http://localhost:8000/api';
-  const BASE_URL = 'https://5delivery.store/DeliveryApp/public/api'
+  const BASE_URL = 'http://localhost:8000/api';
+  // const BASE_URL = 'https://5delivery.store/DeliveryApp/public/api'
 
   return $fetch(BASE_URL + url, {
     ...options,
@@ -21,9 +21,9 @@ export const api = (url: string, options?: any) => {
       case 401:
         toasterStore.showErrorMsg('Unauthorized!');
         break;
+        accessToken.value = null
+        navigateTo('/login');
       case 500:
-        // accessToken.value = null
-        // navigateTo('/login');
         toasterStore.showErrorMsg('Something Went Wrong, Please Try Again');
         break;
       default:
