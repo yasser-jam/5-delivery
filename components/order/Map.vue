@@ -65,17 +65,7 @@ onMounted(() => {
   initMap()
 
   setInterval(async () => {
-
-    // await api('/auth/updateAddress/4', {
-    //   method: 'POST',
-    //   body: {
-    //     address_name: 'test street',
-    //     x: 38.4 + counter++,
-    //     y: 36.9 + counter++
-    //   }
-    // })
-
     await updateMarkerPosition();
-  }, 2000);
+  }, 1000);
 });
 </script>
