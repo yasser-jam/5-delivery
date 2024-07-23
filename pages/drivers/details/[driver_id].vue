@@ -5,7 +5,9 @@
       <h2 class="text-lg font-semibold">Driver Information</h2>
     </div>
 
-    <v-card class="!shadow-sm">
+    <placeholder-loading v-if="pending" name="Driver Info" />
+
+    <v-card v-else class="!shadow-sm">
       <v-card-text>
         <v-row>
           <v-col cols="6">
