@@ -2,7 +2,7 @@
     <div class="flex items-center justify-between p-4 bg-blue-50 rounded-lg relative border-2 border-dashed border-blue">
 
 
-        <div class="flex flex-col gap-4">
+        <div class="flex flex-col gap-4 grow-1">
             <div class="text-blue font-semibold text-xl">
                 {{ meal.name }} x {{ meal.quantity }}
             </div>
@@ -25,8 +25,8 @@
             <!-- <div class="text-sm text-blue-500">Lorem ipsum dolor sit amet consectetur, dolore? Cupiditate deleniti enim</div> -->
         </div>
 
-        <div v-if="meal.photo?.length" class="w-24 h-24">
-            <img :src="`https://5delivery.store/DeliveryApp/public/upload/${meal.photo}`" class="w-full rounded-full" alt="meal-photo">
+        <div v-if="meal.photo?.length" class="flex w-[125px] border-2 border-white">
+            <img :src="`https://5delivery.store/DeliveryApp/public/upload/${meal.photo}`" class="w-full rounded-lg" alt="meal-photo">
         </div>
 
         <v-icon v-else class="bg-icon">mdi-food</v-icon>
