@@ -19,7 +19,7 @@
             <div>Available Drivers</div>
           </div>
 
-          <placeholder-empty v-if="!drivers.length" name="Drivers" />
+          <placeholder-empty v-if="!drivers.length" name="Drivers" class="h-[300px]" />
           <div v-else class="h-[300px] overflow-auto">
             <draggable
               :list="drivers"
@@ -56,7 +56,7 @@
             <div>Available Orders</div>
           </div>
 
-          <placeholder-empty v-if="!readyOrders?.length" name="Ready Orders" />
+          <placeholder-empty v-if="!readyOrders?.length" name="Ready Orders" class="h-[300px]" />
 
           <div v-else class="h-[300px] overflow-auto">
             <template v-for="order in readyOrders">
