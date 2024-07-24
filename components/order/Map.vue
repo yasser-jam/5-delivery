@@ -18,6 +18,8 @@ useHead({
   ],
 });
 
+const toasterStore = useToasterStore()
+
 const props = defineProps<{
   driver: Driver;
 }>();
@@ -28,6 +30,8 @@ const { driverAddress } = storeToRefs(driverStore);
 
 let map: any;
 let marker: any;
+let interval: any;
+let hasAddress: boolean = true
 
 const initMap = () => {
   const initialPosition = [51.505, -0.09]; // Initial coordinates (latitude, longitude)
@@ -47,9 +51,23 @@ const initMap = () => {
 
 const updateMarkerPosition = async () => {
   try {
+    // only send request if there is no active one now (to send request only one time even with interval)
     await driverStore.getPosition(Number(props.driver.id));
-  } catch (error) {
+  
+  } catch (error: any) {
     console.log(error);
+
+    // clear interval when no address found
+    if (error.status == 404) {
+
+      hasAddress = false
+
+      // show toaster
+      toasterStore.showErrorMsg('Driver has no assigned address!')
+
+      // clear interval
+      clearInterval(interval)
+    }
   }
 
   // lat: y, lng: x
@@ -60,12 +78,16 @@ const updateMarkerPosition = async () => {
   map.setView(newPosition, map.getZoom());
 };
 
-onMounted(() => {
+onMounted(async () => {
 
   initMap()
 
-  setInterval(async () => {
-    await updateMarkerPosition();
+  await updateMarkerPosition();
+  
+  interval = setInterval(async () => {
+    if (hasAddress) {
+      await updateMarkerPosition();
+    }
   }, 1000);
 });
 </script>
