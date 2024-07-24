@@ -1,6 +1,12 @@
 <template>
+
   <div id="map" class="h-[300px] w-full"></div>
 
+
+  <div v-if="!hasAddress" class="flex items-center gap-2 text-gray-500 font-italic mt-2">
+    <v-icon>mdi-information</v-icon>
+    <div>Driver has no assigned address</div>
+  </div>
   <link
     rel="stylesheet"
     href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
@@ -31,7 +37,8 @@ const { driverAddress } = storeToRefs(driverStore);
 let map: any;
 let marker: any;
 let interval: any;
-let hasAddress: boolean = true
+
+let hasAddress = ref<boolean>(true)
 
 const initMap = () => {
   const initialPosition = [51.505, -0.09]; // Initial coordinates (latitude, longitude)
@@ -53,6 +60,9 @@ const updateMarkerPosition = async () => {
   try {
     // only send request if there is no active one now (to send request only one time even with interval)
     await driverStore.getPosition(Number(props.driver.id));
+
+    // set has address to true
+    hasAddress.value = true
   
   } catch (error: any) {
     console.log(error);
@@ -60,7 +70,7 @@ const updateMarkerPosition = async () => {
     // clear interval when no address found
     if (error.status == 404) {
 
-      hasAddress = false
+      hasAddress.value = false
 
       // show toaster
       toasterStore.showErrorMsg('Driver has no assigned address!')
