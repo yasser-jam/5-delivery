@@ -98,6 +98,6 @@ onMounted(async () => {
     if (hasAddress) {
       await updateMarkerPosition();
     }
-  }, 1000);
+  }, 1000 * 60);
 });
 </script>
