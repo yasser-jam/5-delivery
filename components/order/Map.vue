@@ -35,7 +35,7 @@ const initMap = async () => {
   const L: any = await import('leaflet'); // Import Leaflet
 
   const driverPosition = [35, 35]; // Initial coordinates (latitude, longitude)
-  const targetPosition = [props.orderAddress.y, props.orderAddress.x]; // Coordinates for the additional marker
+  const targetPosition = [30, 34]; // Coordinates for the additional marker
 
   map = L.map('map').setView(driverPosition, 13);
 
@@ -50,18 +50,27 @@ const initMap = async () => {
     iconSize: [50, 50],
   };
 
-  let myIcon = L.icon(driverIcon);
+  const mapIcon = {
+    iconUrl:
+    'https://img.icons8.com/?size=100&id=13800&format=png&color=000000',
+    iconSize: [40, 40],
+  };
+
+  let mIcon = L.icon(mapIcon)
+
+  const iconOptions = {
+    icon: mIcon
+  }
+
+  let dIcon = L.icon(driverIcon);
 
   const driverIconOptions = {
-    tilte: 'Driver Position',
-    icon: myIcon,
+    icon: dIcon,
   };
 
   marker = L.marker(driverPosition, driverIconOptions).addTo(map);
 
-  targetMarker = L.marker(targetPosition).addTo(map);
-
-  console.log(targetMarker);
+  targetMarker = L.marker(targetPosition, iconOptions).addTo(map);
 };
 
 const updateMarkerPosition = async () => {
