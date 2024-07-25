@@ -21,23 +21,25 @@
 
           <placeholder-empty v-if="!drivers.length" name="Drivers" class="h-[300px]" />
           <div v-else class="h-[300px] overflow-auto">
-            <draggable
-              :list="drivers"
-              @start="(el) => (selectedDriver = drivers[el.oldIndex])"
-              handle=".handle"
-              key="id"
-              class="list-group"
-              ghost-class="ghost"
-            >
-              <template #item="{ element }">
-                <driver-inline-card
-                  :driver="element"
-                  :on-way="isDriverOnWay(element.id)"
-                  :pending="isDriverPending(element.id)"
-                  class="mb-2"
-                ></driver-inline-card>
-              </template>
-            </draggable>
+            <client-only>
+              <draggable
+                :list="drivers"
+                @start="(el) => (selectedDriver = drivers[el.oldIndex])"
+                handle=".handle"
+                key="id"
+                class="list-group"
+                ghost-class="ghost"
+              >
+                <template #item="{ element }">
+                  <driver-inline-card
+                    :driver="element"
+                    :on-way="isDriverOnWay(element.id)"
+                    :pending="isDriverPending(element.id)"
+                    class="mb-2"
+                  ></driver-inline-card>
+                </template>
+              </draggable>
+            </client-only>
           </div>
         </base-card>
       </v-col>

@@ -77,7 +77,11 @@
           v-if="!order.delivery_worker || order.status == 'Ready'"
           >This order is not under delivery yet!</placeholder-empty
         >
-        <order-map v-else :driver="order.delivery_worker"></order-map>
+
+        <client-only v-else>
+
+          <order-map :driver="order.delivery_worker" :order-address="order.address"></order-map>
+        </client-only>
       </v-col>
     </v-row>
   </v-container>
@@ -95,61 +99,4 @@ const orderId = route.params.order_id;
 const { pending } = useLazyAsyncData(() => orderStore.get(Number(orderId)));
 
 const { order } = storeToRefs(orderStore);
-
-// const order = ref<Order>({
-//   id: 0,
-//   status: 'Ready', // Todo: get the right status values
-//   order_price: '1000',
-//   delivery_cost: '20',
-//   order_date: '20/2/2001',
-//   paid: 1,
-//   user_id: 1,
-//   user: {
-//     id: 1,
-//     name: 'Yasser Jamal Al-deen',
-//     email: 'yasserjamalaldeen@gmail.com',
-//     email_verified_at: null,
-//     phone: '213123',
-//     cancel_count: 1,
-//     points: 100,
-//     blocked_until: '20/2/2001',
-//     status: 'Active',
-//   },
-//   address_id: 1,
-//   address: {
-//     id: 1,
-//     x: 1,
-//     y: 4,
-//     address_name: 'test',
-//   },
-//   delivery_received: 1,
-//   delivery_worker_id: '1',
-//   delivery_worker: {
-//     id: 1,
-//     name: 'Ahmad',
-//     email: 'ahmad@gmail.com',
-//     password: 'password',
-//     password_confirmation: 'password',
-//     phone: '0993544811',
-//     status: 'Active',
-//   },
-//   restaurant_name: 'Italiano',
-//   meals: [
-//     {
-//       id: 1,
-//       name: 'Ice Cream',
-//       photo: '',
-//       price: '10000',
-//       description: 'Very Good and Beautiful Icecream',
-//       owner_resturent_id: 1,
-//       category_id: 1,
-//       price_after_discount: 2000,
-//       end_date: null,
-//       quantity: '2',
-//       size: 'large',
-//       addons: [],
-//       withouts: [],
-//     },
-//   ],
-// });
 </script>

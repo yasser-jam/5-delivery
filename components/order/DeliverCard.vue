@@ -3,12 +3,12 @@
         
         <div class="flex items-center gap-6">
 
-            <nuxt-link :to="`/drivers/details/${driver.id}`">
+            <nuxt-link :to="`/drivers/details/${driver?.id}`">
 
                 <div class="flex items-center gap-2">
                     <v-avatar icon="mdi-moped" size="small" class="text-white" color="blue" />
             
-                    <div class="text-secondary font-medium">{{ driver.name }}</div>
+                    <div class="text-secondary font-medium">{{ driver?.name }}</div>
                 </div>
 
             </nuxt-link>
