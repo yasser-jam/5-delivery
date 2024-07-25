@@ -26,7 +26,7 @@
         </div>
 
         <div v-if="meal.photo?.length" class="flex w-[125px] border-2 border-white">
-            <img :src="`https://5delivery.store/DeliveryApp/public/upload/${meal.photo}`" class="w-full rounded-lg" alt="meal-photo">
+            <img :src="`https://5delivery.store/DeliveryApp/public/upload/${meal.photo}`" class="w-28 h-20 rounded-lg object-cover" alt="meal-photo">
         </div>
 
         <v-icon v-else class="bg-icon">mdi-food</v-icon>
