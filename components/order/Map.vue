@@ -30,10 +30,6 @@ let interval: any;
 
 const hasAddress = ref<boolean>(true);
 
-const targetIcon = {
-  tilte: 'Target Position',
-};
-
 const initMap = async () => {
   // @ts-ignore
   const L: any = await import('leaflet'); // Import Leaflet
@@ -48,22 +44,22 @@ const initMap = async () => {
     attribution: '&copy; OpenStreetMap contributors',
   }).addTo(map);
 
-  const customIcon = {
+  const driverIcon = {
     iconUrl:
       'https://img.icons8.com/?size=100&id=tSc6Ou2iMbdd&format=png&color=000000',
     iconSize: [50, 50],
   };
 
-  let myIcon = L.icon(customIcon);
+  let myIcon = L.icon(driverIcon);
 
-  const driverIcon = {
+  const driverIconOptions = {
     tilte: 'Driver Position',
     icon: myIcon,
   };
 
-  marker = L.marker(driverPosition, driverIcon).addTo(map);
+  marker = L.marker(driverPosition, driverIconOptions).addTo(map);
 
-  targetMarker = L.marker(targetPosition, targetIcon).addTo(map);
+  targetMarker = L.marker(targetPosition).addTo(map);
 
   console.log(targetMarker);
 };
@@ -104,6 +100,6 @@ onMounted(async () => {
 
   interval = setInterval(() => {
     updateMarkerPosition();
-  }, 1000 * 60);
+  }, 1000 * 5);
 });
 </script>

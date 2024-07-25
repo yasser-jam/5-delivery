@@ -24,6 +24,7 @@
             <client-only>
               <draggable
                 :list="drivers"
+                item-key="id"
                 @start="(el) => (selectedDriver = drivers[el.oldIndex])"
                 handle=".handle"
                 key="id"
