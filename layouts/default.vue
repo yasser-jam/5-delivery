@@ -33,13 +33,36 @@
             <img src="./../assets/images/logo2.png" width="200" alt="logo" />
           </div>
 
-          <v-btn
-            prepend-icon="mdi-logout"
-            color="error"
-            variant="outlined"
-            @click="logout"
-            >Logout</v-btn
-          >
+          <div class="flex items-center gap-6">
+            <v-menu location="bottom">
+              <template v-slot:activator="{ props }">
+                <v-btn
+                v-bind="props"
+                  icon="mdi-bell"
+                  color="info"
+                  size="lg"
+                ></v-btn>
+              </template>
+
+              <v-list>
+                <template v-for="(item, i) in 20">
+                  <v-list-item>
+                    <base-notification />
+                  </v-list-item>
+
+                  <v-divider v-if="i != 19"></v-divider>
+                </template>
+              </v-list>
+            </v-menu>
+
+            <v-btn
+              prepend-icon="mdi-logout"
+              color="error"
+              variant="outlined"
+              @click="logout"
+              >Logout</v-btn
+            >
+          </div>
         </div>
       </v-app-bar-title>
     </v-app-bar>
@@ -55,9 +78,9 @@
 <script setup lang="ts">
 import { useToasterStore } from '~/stores/toaster';
 
-const toasterStore = useToasterStore()
+const toasterStore = useToasterStore();
 
-const { msg, showToaster, toasterStatus } = storeToRefs(toasterStore)
+const { msg, showToaster, toasterStatus } = storeToRefs(toasterStore);
 
 const accessToken = useCookie('5d_access_token');
 
