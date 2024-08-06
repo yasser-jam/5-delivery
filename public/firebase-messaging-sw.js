@@ -89,7 +89,7 @@ messaging.onBackgroundMessage((payload) => {
 
   const notificationOptions = {
     body: payload.notification.body,
-    icon: window.location.origin + '/assets/images/NAZIK_SVG.svg',
+    // icon: window.location.origin + '/assets/images/NAZIK_SVG.svg',
   };
 
 
