@@ -34,27 +34,6 @@
           </div>
 
           <div class="flex items-center gap-6">
-            <v-menu location="bottom">
-              <template v-slot:activator="{ props }">
-                <v-btn
-                v-bind="props"
-                  icon="mdi-bell"
-                  color="info"
-                  size="lg"
-                ></v-btn>
-              </template>
-
-              <v-list>
-                <template v-for="(item, i) in 20">
-                  <v-list-item>
-                    <base-notification />
-                  </v-list-item>
-
-                  <v-divider v-if="i != 19"></v-divider>
-                </template>
-              </v-list>
-            </v-menu>
-
             <v-btn
               prepend-icon="mdi-logout"
               color="error"
