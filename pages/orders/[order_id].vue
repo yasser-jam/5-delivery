@@ -76,6 +76,7 @@
 
         <client-only v-else>
           <order-map
+            :status="order.status"
             :driver="order.delivery_worker"
             :order-address="order.address"
           ></order-map>
