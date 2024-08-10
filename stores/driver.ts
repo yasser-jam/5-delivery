@@ -83,7 +83,6 @@ export const useDriverStore = defineStore('driver', () => {
 
 
   // get driver address
-
   interface Address {
     address_name: string
     x: number
@@ -100,6 +99,20 @@ export const useDriverStore = defineStore('driver', () => {
     return driverAddress.value
   }
 
+  // Activate
+  const activate = async (id: number) => {
+    await api(`/auth/Set_available/${id}`, { method: 'POST' })
+
+    toasterStore.showSuccessMsg('تم تفعيل السائق بنجاح')
+  }
+
+  // Deactivate
+  const deactivate = async (id: number) => {
+    await api(`/auth/Set_not_available/${id}`, { method: 'POST' })
+
+    toasterStore.showSuccessMsg('تم إلغاء تفعيل السائق بنجاح')
+  }
+
   return {
     driver,
     drivers,
@@ -114,6 +127,8 @@ export const useDriverStore = defineStore('driver', () => {
     update,
     create,
     remove,
-    getPosition
+    getPosition,
+    activate,
+    deactivate
   };
 });

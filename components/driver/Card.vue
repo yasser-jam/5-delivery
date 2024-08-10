@@ -56,17 +56,74 @@
             <div class="font-medium text-sm text-gray-500">Delete</div>
           </div>
         </v-list-item>
+
+        <v-list-item v-if="driver.status == 'Inactive'" :disabled="activateLoading" @click="activate">
+          <div
+            v-if="activateLoading"
+            class="flex justify-center"
+          >
+            <v-progress-circular indeterminate size="small" color="primary" />
+          </div>
+
+          <div v-else class="flex gap-2 py-2 px-2">
+            <v-icon color="success" size="small">mdi-check</v-icon>
+            <div class="font-medium text-sm text-gray-500">Activate</div>
+          </div>
+        </v-list-item>
+
+        <v-list-item v-else :disabled="deactivateLoading" @click="deactivate">
+          <div
+            v-if="deactivateLoading"
+            class="flex justify-center"
+          >
+            <v-progress-circular indeterminate size="small" color="primary" />
+          </div>
+
+          <div v-else class="flex gap-2 py-2 px-2">
+            <v-icon color="gray" size="small">mdi-cancel</v-icon>
+            <div class="font-medium text-sm text-gray-500">Deactivate</div>
+          </div>
+        </v-list-item>
       </v-list>
     </v-menu>
   </div>
 </template>
 
 <script setup lang="ts">
-defineProps<{
+const driverStore = useDriverStore();
+
+const props = defineProps<{
   driver: Driver;
   editable?: boolean;
-  isActive?: boolean
+  isActive?: boolean;
 }>();
+
+const activateLoading = ref(false);
+const deactivateLoading = ref(false);
+
+const activate = async () => {
+  activateLoading.value = true;
+
+  try {
+    await driverStore.activate(Number(props.driver.id));
+
+    await driverStore.list();
+  } finally {
+    activateLoading.value = false;
+  }
+};
+
+const deactivate = async () => {
+  deactivateLoading.value = true;
+
+  try {
+    await driverStore.deactivate(Number(props.driver.id));
+
+    await driverStore.list();
+  } finally {
+    deactivateLoading.value = false;
+  }
+};
 </script>
 
 <style scoped>
