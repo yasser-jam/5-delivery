@@ -19,7 +19,7 @@
         <v-col cols="12">
           <base-label>Complaint Order</base-label>
 
-          <nuxt-link :to="`/orders/${complaint.order.id}`">
+          <nuxt-link :to="`/orders/${complaint.order?.id}`">
             <order-inline-card :order="complaint.order" />
           </nuxt-link>
         </v-col>

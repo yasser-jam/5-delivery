@@ -5,14 +5,14 @@
         v-if="index % 2 == 0"
         :dot-color="
           step.order == activeStep
-            ? 'blue'
+            ? step.status == 'done' ? 'success' : 'blue'
             : step.order < activeStep
             ? 'success'
             : 'grey'
         "
         :icon="
           step.order == activeStep
-            ? ''
+            ? step.status == 'done' ? 'mdi-check' : ''
             : step.order < activeStep
             ? 'mdi-check'
             : ''
@@ -22,7 +22,7 @@
           <div
             :class="
               step.order == activeStep
-                ? 'text-blue'
+                ? step.status == 'done' ? 'text-success' : 'text-blue'
                 : step.order < activeStep
                 ? 'text-success'
                 : 'text-grey'
@@ -59,7 +59,7 @@
               : 'text-grey'
           "
         >
-        {{ step.title }}
+          {{ step.title }}
         </div>
       </v-timeline-item>
     </template>
@@ -68,7 +68,7 @@
 
 <script setup lang="ts">
 const props = defineProps<{
-  status: 'ready' | 'assigned' | 'on-way';
+  status: 'ready' | 'assigned' | 'on-way' | 'done';
 }>();
 
 const steps = ref([
@@ -99,8 +99,9 @@ const steps = ref([
   },
 ]);
 
-const activeStep = ref(steps.value.find(step => step.status == props.status)?.order);
-
+const activeStep = computed(
+  () => steps.value.find((step) => step.status == props.status)?.order || 0
+);
 
 // const steps = computed(() => {
 //   switch (props.status) {

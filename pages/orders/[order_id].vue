@@ -26,21 +26,17 @@
         </div>
       </div>
 
-      <v-chip size="large" :color="order.status == 'ready' ? 'blue' : 'grey'">{{
-        order.status
-      }}</v-chip>
+      <v-chip
+        size="large"
+        :color="order.status == 'ready' ? 'blue' : 'done' ? 'green' : 'grey'"
+        >{{ order.status }}</v-chip
+      >
     </div>
 
     <v-row>
       <v-col cols="12" class="mb-2">
         <order-timeline
-          :status="
-            order.delivery_worker
-              ? order.status == 'Ready'
-                ? 'assigned'
-                : 'on-way'
-              : 'ready'
-          "
+          :status="orderStatus"
         />
       </v-col>
 
@@ -79,8 +75,10 @@
         >
 
         <client-only v-else>
-
-          <order-map :driver="order.delivery_worker" :order-address="order.address"></order-map>
+          <order-map
+            :driver="order.delivery_worker"
+            :order-address="order.address"
+          ></order-map>
         </client-only>
       </v-col>
     </v-row>
@@ -99,4 +97,11 @@ const orderId = route.params.order_id;
 const { pending } = useLazyAsyncData(() => orderStore.get(Number(orderId)));
 
 const { order } = storeToRefs(orderStore);
+
+const orderStatus = computed(() => {
+  if (!order.value.delivery_worker) return 'ready';
+  else if (order.value.status == 'Delivered') return 'done';
+  else if (order.value.status == 'Ready') return 'assigned';
+  return 'on-way';
+});
 </script>
