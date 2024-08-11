@@ -1,7 +1,7 @@
 <template>
   <div
     ref="el"
-    class="flex justify-between items-center p-4 bg-teal-50 rounded-lg border-2 border-dashed border-teal relative"
+    class="flex justify-between items-center p-4 bg-teal-50 rounded-lg border-2 border-dashed border-teal relative pointer-events-none"
   >
     <div>
       <div class="text-teal font-semibold text-2xl">ID: #{{ order.id }}</div>
