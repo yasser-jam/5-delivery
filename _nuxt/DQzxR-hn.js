@@ -1,0 +1,1 @@
+import{n as e}from"./Bbehs7N6.js";import{m as n,N as o,O as a}from"./BD5YuzA9.js";const c=n({__name:"index",setup(r){return e("/drivers"),(t,m)=>(o(),a("div",null," Home page "))}});export{c as default};

@@ -1,0 +1,1 @@
+.v-menu>.v-overlay__content{border-radius:4px;display:flex;flex-direction:column}.v-menu>.v-overlay__content>.v-card,.v-menu>.v-overlay__content>.v-list,.v-menu>.v-overlay__content>.v-sheet{background:rgb(var(--v-theme-surface));border-radius:inherit;box-shadow:0 5px 5px -3px transparent,0 8px 10px 1px #0003,0 3px 14px 2px #0000001a;height:100%;overflow:auto}
