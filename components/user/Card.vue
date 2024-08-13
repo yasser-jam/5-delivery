@@ -3,16 +3,16 @@
         <div class="flex flex-col gap-4">
             <div>
                 <div class="text-violet font-semibold text-2xl">
-                    Yasser Jamal Al-Deen
+                    {{ user.name }}
                 </div>
                 <div class="text-gray-400 text-base">
-                    yasserjamalaldeen@gmail.com
+                    {{ user.email }}
                 </div>
 
 
                 <div class="flex items-center gap-2 font-medium text-violet mt-4">
                     <v-icon>mdi-phone</v-icon>
-                    <div>0993544811</div>
+                    <div>{{ user.phone }}</div>
                 </div>
             </div>
 
