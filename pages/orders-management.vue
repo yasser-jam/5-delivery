@@ -63,7 +63,7 @@
 
           <div v-else class="h-[300px] overflow-auto">
             <template v-for="order in readyOrders">
-              <nuxt-link :to="`/orders/${order.id}`" class="decoration-none">
+              <nuxt-link :to="`/orders/${order.id}`" class="decoration-none" draggable="false">
                 <order-inline-card :order class="mb-2" @drop="assignDriver" />
               </nuxt-link>
             </template>
