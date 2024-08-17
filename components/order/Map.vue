@@ -98,7 +98,7 @@ const updateMarkerPosition = async () => {
   }
 
   // lat: y, lng: x
-  const newPosition = [driverAddress.value.y, driverAddress.value.x];
+  const newPosition = [driverAddress.value.x, driverAddress.value.y];
 
   marker?.setLatLng(newPosition);
   map?.setView(newPosition, map?.getZoom());
