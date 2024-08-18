@@ -36,8 +36,7 @@ const initMap = async () => {
   const L: any = await import('leaflet'); // Import Leaflet
 
   const driverPosition = [0, 0]; // Initial coordinates (latitude, longitude)
-  const targetPosition = [0, 0]; // Coordinates for the additional marker
-
+  const targetPosition = [props.orderAddress.x, props.orderAddress.y]; // Coordinates for target
   map = L.map('map').setView(driverPosition, 13);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
